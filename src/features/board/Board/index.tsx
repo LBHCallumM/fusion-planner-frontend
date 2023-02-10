@@ -11,19 +11,23 @@ const Board = () => {
   const { handleDragEnd, columns, cards } = useDraggable(initialData);
 
   return (
-    <div>
+    <>
       {/* Taskbar */}
-      <div>
-        <h1>Board One</h1>
+      <div className="bg-gray-400">
 
-        <button>Edit Board</button>
+      <div className="p-2 container mx-auto flex text-white justify-between">
+        <h1 className="text-xl font-bold ">Board One</h1>
+
+        <button className=" bg-gray-600 rounded-sm px-3">Edit Board</button>
+      </div>
       </div>
 
       {/* Board */}
 
       {/* <pre>{JSON.stringify(boardData.columns, null, 2)}</pre> */}
 
-      <DragDropContext onDragEnd={handleDragEnd}>
+     <div className="p-2 mt-2 overflow-auto">
+     <DragDropContext onDragEnd={handleDragEnd}>
         <div className="flex space-x-2">
           {columns
             .map((column) => (
@@ -31,7 +35,8 @@ const Board = () => {
             ))}
         </div>
       </DragDropContext>
-    </div>
+     </div>
+    </>
   );
 };
 

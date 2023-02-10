@@ -36,7 +36,7 @@ const initialData: IBoard = {
     },
     f: {
       id: "f",
-      title: "Sixth Task",
+      title: "Sixth Task to do something really really interesting",
     },
   },
   columnOrder: [

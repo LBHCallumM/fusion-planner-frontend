@@ -9,7 +9,6 @@ export interface ICard {
   title: string;
 }
 
-
 export interface IBoard {
   columns: {
     [key: string]: IColumn;
@@ -17,5 +16,6 @@ export interface IBoard {
   cards: {
     [key: string]: ICard
   }
+  columnOrder: Array<string>
   
 }

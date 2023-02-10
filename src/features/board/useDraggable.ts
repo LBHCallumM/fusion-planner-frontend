@@ -89,8 +89,8 @@ const useDraggable = (initialData: IBoard) => {
 
       return {
         handleDragEnd,
-        columns: boardData.columns,
-        cards: boardData.cards
+        columns: boardData.columnOrder.map(x => boardData.columns[x]),
+        cards: boardData.cards,
       }
 }
 

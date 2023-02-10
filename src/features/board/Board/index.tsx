@@ -25,8 +25,7 @@ const Board = () => {
 
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="flex space-x-2">
-          {Object.keys(columns)
-            .map((x) => columns[x])
+          {columns
             .map((column) => (
               <Column key={column.id} column={column} cards={cards} />
             ))}

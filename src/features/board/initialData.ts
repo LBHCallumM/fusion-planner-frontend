@@ -39,6 +39,9 @@ const initialData: IBoard = {
       title: "Sixth Task",
     },
   },
+  columnOrder: [
+    "1", "2"
+  ]
 };
 
 export default initialData;

@@ -1,9 +1,9 @@
-import Board from '../../features/board/Board'
+import BoardLayout from "@/features/board/BoardLayout";
 
 // https://heroicons.com/
 
 const BoardPage = () => {
-  return <Board />
+  return <BoardLayout />
 };
 
 export default BoardPage;

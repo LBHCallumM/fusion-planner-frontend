@@ -53,10 +53,15 @@ const Column = ({ column, cards }: Props) => {
 
         <div>
           <button
-            className="block w-full rounded-sm py-1 px-1 mt-2 hover:bg-gray-300 text-left text-gray-500 hover:text-gray-700"
+            className="flex w-full items-center rounded-sm py-1 px-1 mt-2 hover:bg-gray-300 text-left text-gray-500 hover:text-gray-700"
             onClick={handleAddCard}
           >
-            + Add a card
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+</svg>
+
+            
+           <span className="ml-1">Add a card</span>
           </button>
         </div>
       </div>

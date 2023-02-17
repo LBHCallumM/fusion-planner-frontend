@@ -6,16 +6,15 @@ import { useRouter } from "next/router";
 interface Props {
   card: ICard;
   index: number;
-  showModal: () => void;
+  boardId: string
 }
 
-const Card = ({ card, index, showModal }: Props) => {
+const Card = ({ card, index, boardId }: Props) => {
   const router = useRouter();
 
   const handleViewCard = () => {
-    // showModal(_
 
-    router.push(`/boards/1/cards/${card.id}`);
+    router.push(`/boards/${boardId}/cards/${card.id}`);
   };
 
   return (

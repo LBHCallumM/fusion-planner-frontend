@@ -6,9 +6,9 @@ import Card from "../Card";
 interface Props {
   column: IColumn;
   cards: { [key: string]: ICard };
-  showModal: (card: ICard)=>void
+  boardId: string
 }
-const Column = ({ column, cards, showModal }: Props) => {
+const Column = ({ column, cards, boardId }: Props) => {
   const handleAddCard = () => {};
 
   return (
@@ -44,7 +44,7 @@ const Column = ({ column, cards, showModal }: Props) => {
                 {column.cardIds
                   .map((cardId) => cards[cardId])
                   .map((card, index) => (
-                    <Card key={card.id} card={card} index={index} showModal={() => showModal(card)} />
+                    <Card key={card.id} card={card} index={index} boardId={boardId} />
                   ))}
               </ol>
               <div>{provided.placeholder}</div>

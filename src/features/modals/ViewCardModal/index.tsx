@@ -12,6 +12,7 @@ interface Props {
   modalVisible: boolean;
   handleClose: Function;
   card: ICard | null;
+  boardId: string
 }
 
 interface IComment {
@@ -38,7 +39,7 @@ const comments: Array<IComment> = [
   }
 ]
 
-const ViewCardModal = ({ modalVisible, handleClose, card }: Props) => {
+const ViewCardModal = ({ modalVisible, handleClose, card, boardId }: Props) => {
   const [editingDescription, setEditingDescription] = useState<boolean>(false);
 
   useEffect(() => {
@@ -55,7 +56,7 @@ const ViewCardModal = ({ modalVisible, handleClose, card }: Props) => {
   };
 
   const handleCopyLink = () => {
-    const link = `${window.location.origin}/boards/1/cards/${card.id}`;
+    const link = `${window.location.origin}/boards/${boardId}/cards/${card.id}`;
     navigator.clipboard.writeText(link);
   };
 

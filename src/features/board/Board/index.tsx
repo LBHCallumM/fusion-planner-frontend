@@ -7,10 +7,10 @@ import { IBoard, ICard } from "../types";
 
 interface Props {
   initialData: IBoard,
-  showModal: (card: ICard)=>void
+  boardId: string
 }
 
-const Board = ({ initialData, showModal }: Props ) => {
+const Board = ({ initialData, boardId }: Props ) => {
   const { handleDragEnd, columns, cards } = useDraggable(initialData);
 
   
@@ -19,7 +19,7 @@ const Board = ({ initialData, showModal }: Props ) => {
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="flex space-x-2">
           {columns.map((column) => (
-            <Column key={column.id} column={column} cards={cards} showModal={showModal} />
+            <Column key={column.id} column={column} cards={cards} boardId={boardId} />
           ))}
         </div>
       </DragDropContext>

@@ -24,7 +24,6 @@ const BoardLayout = ({ boardId, cardId, columnId }: Props) => {
       setBoardData(initialData);
 
 
-      // console.log({ columns: initialData.columns,name: initialData?.columns[columnId]?.name })
 
     }, 0);
 
@@ -58,7 +57,7 @@ const BoardLayout = ({ boardId, cardId, columnId }: Props) => {
   const closeModal = (): void => {
     // setModal(null)
 
-    router.push(`/boards/1/`);
+    router.push(`/boards/${boardId}/`);
   };
 
   return (

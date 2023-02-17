@@ -4,54 +4,72 @@ import TaskBar from "../TaskBar";
 import { IBoard, ICard } from "../types";
 import initialData from "../initialData";
 import ViewCardModal from "../../modals/ViewCardModal";
+import { useRouter } from "next/router";
 // import Swal from 'sweetalert2'
 
+interface Props {
+  boardId: string;
+  cardId?: string;
+}
 
-
-
-
-const BoardLayout = () => {
+const BoardLayout = ({ boardId, cardId }: Props) => {
   const [boardData, setBoardData] = useState<IBoard | null>(null);
-  const [modalVisible, setModalVisible] = useState<boolean>(true)
 
-  const [modal, setModal] = useState<ICard | null>(null)
+  const [modal, setModal] = useState<ICard | null>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     setTimeout(() => {
       setBoardData(initialData);
-
-      
     }, 0);
-  }, []);
+  }, [cardId]);
 
-  const showModal = (card: ICard): void => {
-    // setModalVisible(card)
-    setModal(card)
-    // Swal.fire({
-    //   title: 'Error!',
-    //   text: 'Do you want to continue',
-    //   // icon: 'error',
-    //   confirmButtonText: 'Cool',
-    //   html: 
-    //     <div>
-    //       test
-    //     </div>
-      
-    // })
-  }
+  useEffect(() => {
+    if (boardData === null) return;
+
+    if (cardId === null) {
+      showModal(null);
+      return;
+    }
+
+    if (!boardData.cards.hasOwnProperty(cardId)) {
+      closeModal();
+      alert("Card not found");
+      return;
+    }
+
+    const card = boardData?.cards[cardId];
+
+    showModal(card);
+  }, [cardId, boardData]);
+
+  const showModal = (card: ICard | null): void => {
+    setModal(card);
+  };
 
   const closeModal = (): void => {
-    setModal(null)
-  }
+    // setModal(null)
+
+    router.push(`/boards/1/`);
+  };
 
   return (
     <>
       <TaskBar title="Board One" />
 
+      <p>BoardId: {boardId}</p>
+      <p>CardId: {cardId}</p>
+
+      <pre>{JSON.stringify(modal, null, 2)}</pre>
 
       {/* <button onClick={showModal}>Show Modal</button> */}
 
-      <ViewCardModal card={modal} modalVisible={modal !== null} handleClose={closeModal} />
+      <ViewCardModal
+        card={modal}
+        modalVisible={modal !== null}
+        handleClose={closeModal}
+      />
 
       {boardData === null ? (
         <>
@@ -59,10 +77,11 @@ const BoardLayout = () => {
         </>
       ) : (
         // Eventually add Skeleton
-        <Board initialData={boardData} showModal={showModal}  />
+        <Board initialData={boardData} showModal={showModal} />
       )}
     </>
   );
 };
 
 export default BoardLayout;
+

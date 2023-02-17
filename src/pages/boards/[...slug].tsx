@@ -1,0 +1,28 @@
+import BoardLayout from "@/features/board/BoardLayout";
+
+// https://heroicons.com/
+
+import { useRouter } from "next/router";
+
+const BoardPage = () => {
+  const router = useRouter();
+  const { slug } = router.query;
+
+  return (
+    <>{slug && <BoardLayout boardId={slug[0]} cardId={slug[2] || null} />}</>
+  );
+};
+
+export const getServerSideProps = async (context) => {
+  let { slug } = context.query;
+  // If slug is "undefined", since "undefined" cannot be serialized, server will throw error
+  // But null can be serializable
+  if (!slug) {
+    slug = null;
+  }
+  // now we are passing the slug to the component
+  return { props: { slug: slug } };
+};
+
+export default BoardPage;
+

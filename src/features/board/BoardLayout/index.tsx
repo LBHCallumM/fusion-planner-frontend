@@ -21,7 +21,14 @@ const BoardLayout = ({ boardId, cardId }: Props) => {
   useEffect(() => {
     setTimeout(() => {
       setBoardData(initialData);
+
+
+      
+
     }, 0);
+    
+    document.title = "Board One"
+
   }, [cardId]);
 
   useEffect(() => {

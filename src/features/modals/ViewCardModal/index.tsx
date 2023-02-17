@@ -108,7 +108,11 @@ const ViewCardModal = ({ modalVisible, handleClose, card, boardId }: Props) => {
       setLoadingComments(false);
     }, 1000);
 
-    // timeoutRef.current = ref;
+    // set title
+    if (card?.title) {
+      document.title = card.title
+
+    }
   }, [card?.id]);
 
   const handleEditDescription = () => {

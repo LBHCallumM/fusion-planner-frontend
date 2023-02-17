@@ -14,6 +14,8 @@ interface Props {
   handleClose: Function;
   card: ICard | null;
   boardId: string;
+  columnName: string
+  columnId: string
 }
 
 interface IComment {
@@ -85,7 +87,7 @@ const placeholderComments: Array<IComment> = [
   },
 ];
 
-const ViewCardModal = ({ modalVisible, handleClose, card, boardId }: Props) => {
+const ViewCardModal = ({ modalVisible, columnId, columnName, handleClose, card, boardId }: Props) => {
   const [editingDescription, setEditingDescription] = useState<boolean>(false);
   const [comments, setComments] = useState<Array<IComment> | null>(null);
   const [loadingComments, setLoadingComments] = useState<boolean>(false);
@@ -124,7 +126,7 @@ const ViewCardModal = ({ modalVisible, handleClose, card, boardId }: Props) => {
   };
 
   const handleCopyLink = () => {
-    const link = `${window.location.origin}/boards/${boardId}/cards/${card.id}`;
+    const link = `${window.location.origin}/boards/${boardId}/cards/${columnId}/${card.id}`;
     navigator.clipboard.writeText(link);
   };
 
@@ -164,7 +166,7 @@ const ViewCardModal = ({ modalVisible, handleClose, card, boardId }: Props) => {
             </h2>
 
             <div className="text-gray-400 mb-2 ml-8">
-              in list <span className="underline">List Two</span>
+              in list <span className="underline">{columnName}</span>
             </div>
 
             <div>

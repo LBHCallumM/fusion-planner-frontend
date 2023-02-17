@@ -7,14 +7,15 @@ interface Props {
   card: ICard;
   index: number;
   boardId: string
+  columnId: string
 }
 
-const Card = ({ card, index, boardId }: Props) => {
+const Card = ({ card, index, boardId, columnId }: Props) => {
   const router = useRouter();
 
   const handleViewCard = () => {
 
-    router.push(`/boards/${boardId}/cards/${card.id}`);
+    router.push(`/boards/${boardId}/cards/${columnId}/${card.id}`);
   };
 
   return (

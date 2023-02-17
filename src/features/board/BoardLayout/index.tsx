@@ -9,9 +9,10 @@ import { useRouter } from "next/router";
 interface Props {
   boardId: string;
   cardId?: string;
+  columnId?: string
 }
 
-const BoardLayout = ({ boardId, cardId }: Props) => {
+const BoardLayout = ({ boardId, cardId, columnId }: Props) => {
   const [boardData, setBoardData] = useState<IBoard | null>(null);
 
   const [modal, setModal] = useState<ICard | null>(null);
@@ -23,10 +24,10 @@ const BoardLayout = ({ boardId, cardId }: Props) => {
       setBoardData(initialData);
 
 
-      
+      // console.log({ columns: initialData.columns,name: initialData?.columns[columnId]?.name })
 
     }, 0);
-    
+
     document.title = "Board One"
 
   }, [cardId]);
@@ -69,6 +70,8 @@ const BoardLayout = ({ boardId, cardId }: Props) => {
         modalVisible={modal !== null}
         handleClose={closeModal}
         boardId={boardId}
+        columnName={boardData?.columns[columnId]?.name}
+        columnId={columnId}
       />
 
       {boardData === null ? (

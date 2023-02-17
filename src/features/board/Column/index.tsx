@@ -44,7 +44,7 @@ const Column = ({ column, cards, boardId }: Props) => {
                 {column.cardIds
                   .map((cardId) => cards[cardId])
                   .map((card, index) => (
-                    <Card key={card.id} card={card} index={index} boardId={boardId} />
+                    <Card key={card.id} card={card} index={index} boardId={boardId} columnId={column.id} />
                   ))}
               </ol>
               <div>{provided.placeholder}</div>

@@ -1,9 +1,9 @@
 // import Rodal from 'rodal';
 import { ICard } from "@/features/board/types";
 import Rodal from "rodal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import TextareaAutosize from 'react-textarea-autosize';
+import TextareaAutosize from "react-textarea-autosize";
 
 // include styles
 import "rodal/lib/rodal.css";
@@ -15,16 +15,20 @@ interface Props {
 }
 
 const ViewCardModal = ({ modalVisible, handleClose, card }: Props) => {
+  const [editingDescription, setEditingDescription] = useState<boolean>(false);
 
-  const [editingDescription, setEditingDescription]  = useState<boolean>(false)
+  useEffect(() => {
+    // reset edit state
+    setEditingDescription(false)
+  }, [card?.id])
 
   const handleEditDescription = () => {
-    setEditingDescription(true)
-  }
+    setEditingDescription(true);
+  };
 
   const handleOnCancelEdit = () => {
-    setEditingDescription(false)
-  }
+    setEditingDescription(false);
+  };
 
   const handleCopyLink = () => {
     const link = `${window.location.origin}/boards/1/cards/${card.id}`;
@@ -63,14 +67,16 @@ const ViewCardModal = ({ modalVisible, handleClose, card }: Props) => {
 
               <span className="font-medium">{card.title}</span>
             </h2>
-            
 
             <div className="text-gray-400 mb-2 ml-8">
               in list <span className="underline">List Two</span>
             </div>
 
             <div>
-              <button className="flex items-center ml-8 text-gray-600" onClick={handleCopyLink}>
+              <button
+                className="flex items-center ml-8 text-gray-600"
+                onClick={handleCopyLink}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -94,7 +100,6 @@ const ViewCardModal = ({ modalVisible, handleClose, card }: Props) => {
                 <h2 className="text-lg text-gray-800 mb-2 flex items-center ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
@@ -106,40 +111,56 @@ const ViewCardModal = ({ modalVisible, handleClose, card }: Props) => {
                       d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12"
                     />
                   </svg>
-
-                  <span className="font-medium">Description</span>
+                  <span className="font-medium">Description</span>{" "}
+                  {card.description && (
+                    <button className="bg-gray-200 ml-2 text-gray-600 px-2 py rounded-sm">
+                      Edit
+                    </button>
+                  )}
                 </h2>
 
                 <div className=" ml-8">
                   {editingDescription ? (
-                    <div >
-                      
+                    <div>
                       <TextareaAutosize
-    minRows={6}
-    maxRows={12}
-    defaultValue={card.description}
-    className="border border-solid border-gray-500 w-full block rounded-sm p-2 min-h-full"
-    />
-                      
-                    <div className="mt-2 gap-x-2 flex">
-                      <button onClick={handleOnCancelEdit} className="bg-gray-600 text-gray-200 px-4 py-2 rounded-sm">Save</button>
-                      <button onClick={handleOnCancelEdit} className="bg-gray-600 text-gray-200 px-4 py-2 rounded-sm">Cancel</button>
+                        minRows={6}
+                        maxRows={12}
+                        defaultValue={card.description}
+                        className="border border-solid border-gray-500 w-full block rounded-sm p-2 min-h-full"
+                      />
 
-                    </div>
-
+                      <div className="mt-2 gap-x-2 flex">
+                        <button
+                          onClick={handleOnCancelEdit}
+                          className="bg-gray-600 text-gray-200 px-4 py-2 rounded-sm"
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={handleOnCancelEdit}
+                          className="bg-gray-600 text-gray-200 px-4 py-2 rounded-sm"
+                        >
+                          Cancel
+                        </button>
+                      </div>
 
                       {/* <textarea name="" id=""
                     
                     // cols="30" rows="10"
                     //  value={card.description}  
                      /> */}
-                     </div>
+                    </div>
                   ) : (
-<div role="button" onClick={handleEditDescription} className="bg-gray-100 text-gray-600 p-3 rounded-sm">
-{card.description ? card.description : "Add a more detailed description..."}
-</div>
+                    <div
+                      role="button"
+                      onClick={handleEditDescription}
+                      className="bg-gray-100 text-gray-600 p-3 rounded-sm"
+                    >
+                      {card.description
+                        ? card.description
+                        : "Add a more detailed description..."}
+                    </div>
                   )}
-                  
                 </div>
               </div>
 

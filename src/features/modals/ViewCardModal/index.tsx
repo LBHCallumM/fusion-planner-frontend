@@ -1,21 +1,19 @@
 // import Rodal from 'rodal';
 import { ICard } from "@/features/board/types";
-import Rodal from "rodal";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import TextareaAutosize from "react-textarea-autosize";
-import TimeAgo from 'react-timeago'
+import TimeAgo from "react-timeago";
 
-// include styles
-import "rodal/lib/rodal.css";
+import Modal from "../Modal";
 
 interface Props {
   modalVisible: boolean;
   handleClose: Function;
   card: ICard | null;
   boardId: string;
-  columnName: string
-  columnId: string
+  columnName: string;
+  columnId: string;
 }
 
 interface IComment {
@@ -87,7 +85,14 @@ const placeholderComments: Array<IComment> = [
   },
 ];
 
-const ViewCardModal = ({ modalVisible, columnId, columnName, handleClose, card, boardId }: Props) => {
+const ViewCardModal = ({
+  modalVisible,
+  columnId,
+  columnName,
+  handleClose,
+  card,
+  boardId,
+}: Props) => {
   const [editingDescription, setEditingDescription] = useState<boolean>(false);
   const [comments, setComments] = useState<Array<IComment> | null>(null);
   const [loadingComments, setLoadingComments] = useState<boolean>(false);
@@ -101,10 +106,8 @@ const ViewCardModal = ({ modalVisible, columnId, columnName, handleClose, card, 
 
     setLoadingComments(true);
     setTimeout(() => {
-
-
       // check if still needed
-      if (card?.id === null) return
+      if (card?.id === null) return;
 
       setComments(placeholderComments);
       setLoadingComments(false);
@@ -112,8 +115,7 @@ const ViewCardModal = ({ modalVisible, columnId, columnName, handleClose, card, 
 
     // set title
     if (card?.title) {
-      document.title = card.title
-
+      document.title = card.title;
     }
   }, [card?.id]);
 
@@ -131,19 +133,7 @@ const ViewCardModal = ({ modalVisible, columnId, columnName, handleClose, card, 
   };
 
   return (
-    <div>
-      <Rodal
-        customStyles={{
-          width: "calc(100vw - 60px)",
-          maxWidth: 800,
-          // maxHeight: "calc(100vh - 200px)",
-          height: "auto",
-          margin: "30px auto",
-          overflowY: "auto"
-        }}
-        visible={modalVisible}
-        onClose={handleClose}
-      >
+      <Modal modalVisible={modalVisible} handleClose={handleClose}>
         {card && (
           <div className="sm:p-2 md:p-4 lg:p-8">
             <h2 className="text-xl text-gray-800 mb flex items-center">
@@ -299,28 +289,28 @@ const ViewCardModal = ({ modalVisible, columnId, columnName, handleClose, card, 
                     <>Loading...</>
                   ) : (
                     <ol className="ml-8 mt-4 flex flex-col gap-y-4">
-                      {comments && comments.map((comment, index) => (
-                        <li key={index}>
-                          <div className="">
-                            <div>
-                              <span className="font-semibold mr">
-                                {comment.author}
-                              </span>{" "}
-                              <span className="font-light text-gray-500">
-                                <TimeAgo date={comment.time} />
-
-                              </span>
+                      {comments &&
+                        comments.map((comment, index) => (
+                          <li key={index}>
+                            <div className="">
+                              <div>
+                                <span className="font-semibold mr">
+                                  {comment.author}
+                                </span>{" "}
+                                <span className="font-light text-gray-500">
+                                  <TimeAgo date={comment.time} />
+                                </span>
+                              </div>
+                              <div className="bg-gray-50 rounded-sm p-2 my-1 shadow-sm">
+                                {comment.message}
+                              </div>
+                              <div className="flex gap-x-2 font-light underline text-gray-500">
+                                <button>Edit</button>
+                                <button>Delete</button>
+                              </div>
                             </div>
-                            <div className="bg-gray-50 rounded-sm p-2 my-1 shadow-sm">
-                              {comment.message}
-                            </div>
-                            <div className="flex gap-x-2 font-light underline text-gray-500">
-                              <button>Edit</button>
-                              <button>Delete</button>
-                            </div>
-                          </div>
-                        </li>
-                      ))}
+                          </li>
+                        ))}
                     </ol>
                   )}
                 </div>
@@ -353,8 +343,7 @@ const ViewCardModal = ({ modalVisible, columnId, columnName, handleClose, card, 
             </div>
           </div>
         )}
-      </Rodal>
-    </div>
+      </Modal>
   );
 };
 

@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 interface Props {
   boardId: string;
   cardId?: string;
-  columnId?: string
+  columnId?: string;
 }
 
 const BoardLayout = ({ boardId, cardId, columnId }: Props) => {
@@ -22,13 +22,9 @@ const BoardLayout = ({ boardId, cardId, columnId }: Props) => {
   useEffect(() => {
     setTimeout(() => {
       setBoardData(initialData);
-
-
-
     }, 0);
 
-    document.title = "Board One"
-
+    document.title = "Board One";
   }, [cardId]);
 
   useEffect(() => {

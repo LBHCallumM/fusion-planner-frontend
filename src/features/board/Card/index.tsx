@@ -4,9 +4,10 @@ import { ICard } from "../types";
 interface Props {
   card: ICard;
   index: number;
+  showModal: () => void
 }
 
-const Card = ({ card, index }: Props) => {
+const Card = ({ card, index, showModal }: Props) => {
 
 
 
@@ -18,6 +19,7 @@ const Card = ({ card, index }: Props) => {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           className={`bg-gray-50 p-2 flex justify-between rounded-sm text-gray-700 shadow-sm hover:bg-gray-100 border-gray-300 group  ${snapshot.isDragging ? "border-2" : ""}`}
+          onClick={showModal}
         >
          <div> {card.title}</div>
          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-gray-600 w-4 shrink-0 opacity-0 group-hover:opacity-100">

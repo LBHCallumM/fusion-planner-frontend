@@ -58,13 +58,6 @@ const BoardLayout = ({ boardId, cardId }: Props) => {
     <>
       <TaskBar title="Board One" />
 
-      <p>BoardId: {boardId}</p>
-      <p>CardId: {cardId}</p>
-
-      <pre>{JSON.stringify(modal, null, 2)}</pre>
-
-      {/* <button onClick={showModal}>Show Modal</button> */}
-
       <ViewCardModal
         card={modal}
         modalVisible={modal !== null}

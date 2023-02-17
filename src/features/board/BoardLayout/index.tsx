@@ -5,7 +5,6 @@ import { IBoard, ICard } from "../types";
 import initialData from "../initialData";
 import ViewCardModal from "../../modals/ViewCardModal";
 import { useRouter } from "next/router";
-// import Swal from 'sweetalert2'
 
 interface Props {
   boardId: string;
@@ -62,6 +61,7 @@ const BoardLayout = ({ boardId, cardId }: Props) => {
         card={modal}
         modalVisible={modal !== null}
         handleClose={closeModal}
+        boardId={boardId}
       />
 
       {boardData === null ? (
@@ -70,7 +70,7 @@ const BoardLayout = ({ boardId, cardId }: Props) => {
         </>
       ) : (
         // Eventually add Skeleton
-        <Board initialData={boardData} showModal={showModal} />
+        <Board initialData={boardData} boardId={boardId} />
       )}
     </>
   );

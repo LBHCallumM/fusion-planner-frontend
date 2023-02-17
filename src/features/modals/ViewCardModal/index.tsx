@@ -1,6 +1,9 @@
 // import Rodal from 'rodal';
 import { ICard } from "@/features/board/types";
 import Rodal from "rodal";
+import { useState } from "react";
+
+import TextareaAutosize from 'react-textarea-autosize';
 
 // include styles
 import "rodal/lib/rodal.css";
@@ -12,6 +15,17 @@ interface Props {
 }
 
 const ViewCardModal = ({ modalVisible, handleClose, card }: Props) => {
+
+  const [editingDescription, setEditingDescription]  = useState<boolean>(false)
+
+  const handleEditDescription = () => {
+    setEditingDescription(true)
+  }
+
+  const handleOnCancelEdit = () => {
+    setEditingDescription(false)
+  }
+
   const handleCopyLink = () => {
     const link = `${window.location.origin}/boards/1/cards/${card.id}`;
     navigator.clipboard.writeText(link);
@@ -96,10 +110,36 @@ const ViewCardModal = ({ modalVisible, handleClose, card }: Props) => {
                   <span className="font-medium">Description</span>
                 </h2>
 
-                <div>
-                  <div className="bg-gray-100 text-gray-600 p-3 rounded-sm ml-8">
-                    {card.description ? card.description : "Add a more detailed description..."}
-                  </div>
+                <div className=" ml-8">
+                  {editingDescription ? (
+                    <div >
+                      
+                      <TextareaAutosize
+    minRows={6}
+    maxRows={12}
+    defaultValue={card.description}
+    className="border border-solid border-gray-500 w-full block rounded-sm p-2 min-h-full"
+    />
+                      
+                    <div className="mt-2 gap-x-2 flex">
+                      <button onClick={handleOnCancelEdit} className="bg-gray-600 text-gray-200 px-4 py-2 rounded-sm">Save</button>
+                      <button onClick={handleOnCancelEdit} className="bg-gray-600 text-gray-200 px-4 py-2 rounded-sm">Cancel</button>
+
+                    </div>
+
+
+                      {/* <textarea name="" id=""
+                    
+                    // cols="30" rows="10"
+                    //  value={card.description}  
+                     /> */}
+                     </div>
+                  ) : (
+<div role="button" onClick={handleEditDescription} className="bg-gray-100 text-gray-600 p-3 rounded-sm">
+{card.description ? card.description : "Add a more detailed description..."}
+</div>
+                  )}
+                  
                 </div>
               </div>
 

@@ -4,6 +4,7 @@ import Rodal from "rodal";
 import { useEffect, useRef, useState } from "react";
 
 import TextareaAutosize from "react-textarea-autosize";
+import TimeAgo from 'react-timeago'
 
 // include styles
 import "rodal/lib/rodal.css";
@@ -17,24 +18,69 @@ interface Props {
 
 interface IComment {
   author: string;
-  time: string;
+  time: Date;
   message: string;
 }
 
 const placeholderComments: Array<IComment> = [
   {
     author: "Callum Macpherson",
-    time: "15 minutes ago",
+    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
     message: "Blah blah something",
   },
   {
     author: "Callum Macpherson",
-    time: "15 minutes ago",
+    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
     message: "Blah blah something",
   },
   {
     author: "Callum Macpherson",
-    time: "15 minutes ago",
+    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
+    message: "Blah blah something",
+  },
+  {
+    author: "Callum Macpherson",
+    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
+    message: "Blah blah something",
+  },
+  {
+    author: "Callum Macpherson",
+    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
+    message: "Blah blah something",
+  },
+  {
+    author: "Callum Macpherson",
+    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
+    message: "Blah blah something",
+  },
+  {
+    author: "Callum Macpherson",
+    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
+    message: "Blah blah something",
+  },
+  {
+    author: "Callum Macpherson",
+    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
+    message: "Blah blah something",
+  },
+  {
+    author: "Callum Macpherson",
+    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
+    message: "Blah blah something",
+  },
+  {
+    author: "Callum Macpherson",
+    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
+    message: "Blah blah something",
+  },
+  {
+    author: "Callum Macpherson",
+    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
+    message: "Blah blah something",
+  },
+  {
+    author: "Callum Macpherson",
+    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
     message: "Blah blah something",
   },
 ];
@@ -82,16 +128,18 @@ const ViewCardModal = ({ modalVisible, handleClose, card, boardId }: Props) => {
     <div>
       <Rodal
         customStyles={{
-          width: "calc(100vw - 200px)",
-          maxWidth: 600,
-          maxHeight: "calc(100vh - 200px)",
+          width: "calc(100vw - 60px)",
+          maxWidth: 800,
+          // maxHeight: "calc(100vh - 200px)",
           height: "auto",
+          margin: "30px auto",
+          overflowY: "auto"
         }}
         visible={modalVisible}
         onClose={handleClose}
       >
         {card && (
-          <div className="">
+          <div className="sm:p-2 md:p-4 lg:p-8">
             <h2 className="text-xl text-gray-800 mb flex items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -245,7 +293,7 @@ const ViewCardModal = ({ modalVisible, handleClose, card, boardId }: Props) => {
                     <>Loading...</>
                   ) : (
                     <ol className="ml-8 mt-4 flex flex-col gap-y-4">
-                      {placeholderComments.map((comment, index) => (
+                      {comments && comments.map((comment, index) => (
                         <li key={index}>
                           <div className="">
                             <div>
@@ -253,10 +301,11 @@ const ViewCardModal = ({ modalVisible, handleClose, card, boardId }: Props) => {
                                 {comment.author}
                               </span>{" "}
                               <span className="font-light text-gray-500">
-                                {comment.time}
+                                <TimeAgo date={comment.time} />
+
                               </span>
                             </div>
-                            <div className="bg-gray-50 rounded-sm p-2 my-1">
+                            <div className="bg-gray-50 rounded-sm p-2 my-1 shadow-sm">
                               {comment.message}
                             </div>
                             <div className="flex gap-x-2 font-light underline text-gray-500">

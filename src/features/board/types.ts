@@ -7,6 +7,7 @@ export interface IColumn {
 export interface ICard {
   id: string;
   title: string;
+  description?: string;
 }
 
 export interface IBoard {

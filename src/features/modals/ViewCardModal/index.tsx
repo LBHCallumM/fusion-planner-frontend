@@ -12,6 +12,11 @@ interface Props {
 }
 
 const ViewCardModal = ({ modalVisible, handleClose, card }: Props) => {
+  const handleCopyLink = () => {
+    const link = `${window.location.origin}/boards/1/cards/${card.id}`;
+    navigator.clipboard.writeText(link);
+  };
+
   return (
     <div>
       <Rodal
@@ -44,8 +49,30 @@ const ViewCardModal = ({ modalVisible, handleClose, card }: Props) => {
 
               <span className="font-medium">{card.title}</span>
             </h2>
+            
+
             <div className="text-gray-400 mb-2 ml-8">
               in list <span className="underline">List Two</span>
+            </div>
+
+            <div>
+              <button className="flex items-center ml-8 text-gray-600" onClick={handleCopyLink}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-4 h-6 mr-1"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
+                  />
+                </svg>
+                <span>Copy link</span>
+              </button>
             </div>
 
             <div className=" grid md:space-x-4 grid-cols-[1fr] md:grid-cols-[3fr,1fr] mt-4">
@@ -71,10 +98,7 @@ const ViewCardModal = ({ modalVisible, handleClose, card }: Props) => {
 
                 <div>
                   <div className="bg-gray-100 text-gray-600 p-3 rounded-sm ml-8">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. At
-                    optio nihil, nesciunt nemo commodi quae aliquam doloremque
-                    consequatur officiis consectetur, cumque deserunt? Ducimus
-                    ut dolores est saepe eaque. Laudantium, nihil?
+                    {card.description ? card.description : "Add a more detailed description..."}
                   </div>
                 </div>
               </div>

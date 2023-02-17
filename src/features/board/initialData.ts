@@ -5,7 +5,7 @@ const initialData: IBoard = {
     "1": {
       id: "1",
       name: "List One",
-      cardIds: ["a", "b", "c", "d", ],
+      cardIds: ["a", "b", "c", "d"],
     },
     "2": {
       id: "2",
@@ -17,6 +17,8 @@ const initialData: IBoard = {
     a: {
       id: "a",
       title: "First Task",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. At optio nihil, nesciunt nemo commodi quae aliquam doloremque consequatur officiis consectetur, cumque deserunt? Ducimus ut dolores est saepe eaque. Laudantium, nihil?",
     },
     b: {
       id: "b",
@@ -39,9 +41,7 @@ const initialData: IBoard = {
       title: "Sixth Task to do something really really interesting",
     },
   },
-  columnOrder: [
-    "1", "2"
-  ]
+  columnOrder: ["1", "2"],
 };
 
 export default initialData;

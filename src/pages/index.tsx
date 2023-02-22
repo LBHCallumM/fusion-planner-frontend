@@ -1,8 +1,11 @@
 import { IBoard } from "@/features/board/types";
+import CreateBoardModal from "@/features/modals/CreateBoardModal";
 import Head from "next/head";
 import Link from 'next/link'
+import { useState } from "react";
+import { useRouter } from 'next/router';
 
-const boards: Array<IBoard> = [
+const placeholderBoards: Array<IBoard> = [
 
   {
     id: "1",
@@ -18,6 +21,25 @@ const boards: Array<IBoard> = [
 ];
 
 export default function Home() {
+  const [modalVisible, setModalVisible] = useState(false)
+  const [boards, setBoards] = useState<Array<IBoard>>(placeholderBoards)
+
+  const router = useRouter();
+
+  const handleShowModal = () => {
+    setModalVisible(true)
+  }
+
+  const handleCloseModal = () => {
+    setModalVisible(false)
+  }
+
+  const handleAddBoard = (newBoard: IBoard) => {
+    setBoards(x => ([ ...x, newBoard ]))
+    // handleCloseModal()
+    router.replace(`/boards/${newBoard.id}`)
+  }
+
   return (
     <>
       <Head>
@@ -29,10 +51,9 @@ export default function Home() {
 
       <main>
         <div className="container mx-auto mt-6 p-2">
-        {/* items-center justify-between */}
           <div className="flex flex-col md:flex-row md:justify-between">
-          <h1 className="text-4xl">Boards</h1>
-    <button className="bg-gray-600 text-white py-2 px-4 rounded-sm mt-2 md:mt-0">Create board</button>
+            <h1 className="text-4xl">Boards</h1>
+            <button className="bg-gray-600 text-white py-2 px-4 rounded-sm mt-2 md:mt-0" onClick={handleShowModal}>Create board</button>
           </div>
 
           <ul className="grid gap-2 mt-2 md:grid-cols-2 lg:grid-cols-3">
@@ -54,6 +75,11 @@ export default function Home() {
             ))}
           </ul>
         </div>
+        <CreateBoardModal 
+          handleClose={handleCloseModal} 
+          modalVisible={modalVisible} 
+          handleAddBoard={handleAddBoard}
+        />
       </main>
     </>
   );

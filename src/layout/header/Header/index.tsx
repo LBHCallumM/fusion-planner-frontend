@@ -1,6 +1,4 @@
-import { link } from "fs";
-
-const exp = require("constants");
+import Link from "next/link";
 
 const Header = () => {
   return (
@@ -10,14 +8,14 @@ const Header = () => {
 
         <ul className="flex space-x-2 ">
           {[
-            { label: "Dashboard", link: "#" },
+            { label: "Dashboard", link: "/" },
             { label: "Account", link: "#" },
             { label: "Logout", link: "#" },
           ].map(({ link, label }, index) => (
             <li key={index}>
-              <a href={link} className="hover:underline">
+              <Link href={link} className="hover:underline">
                 {label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>

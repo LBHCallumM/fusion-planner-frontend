@@ -5,7 +5,7 @@ import Card from "../Card";
 import { useState } from "react";
 
 import TextareaAutosize from "react-textarea-autosize";
-import { getNextId } from "../cardIdHelper";
+import { getNextCardId } from "../boardHelper";
 
 interface Props {
   column: IColumn;
@@ -25,7 +25,7 @@ const Column = ({ column, cards, boardId, handleAddNewCard }: Props) => {
   const handleAddCard = (e) => {
     e.preventDefault()
 
-    const newCard: ICard = { title: newCardName, id: getNextId() }
+    const newCard: ICard = { title: newCardName, id: getNextCardId() }
     handleAddNewCard(newCard, column.id)
 
     setNewCardName("")

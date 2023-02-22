@@ -7,6 +7,7 @@ import ViewCardModal from "@/features/modals/ViewCardModal";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import initialData from "../initialData";
+import AddColumnForm from "../AddColumnForm";
 
 interface Props {
   boardId: string;
@@ -16,7 +17,7 @@ interface Props {
 
 const Board = ({ boardId, columnId, cardId }: Props) => {
   const [boardData, setBoardData] = useState<IBoardState | null>(null);
-  const { handleDragEnd, columns, cards, handleAddNewCard } = useDraggable(initialData);
+  const { handleDragEnd, columns, cards, handleAddNewCard, handleAddNewColumn } = useDraggable(initialData);
   const [viewCardModal, setViewCardModal] = useState<ICard | null>(null);
 
   const router = useRouter();
@@ -36,8 +37,6 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
       showViewCardModal(null);
       return;
     }
-
-    console.log({ cards: cards})
 
     if (!cards.hasOwnProperty(cardId)) {
       closeViewCardModal();
@@ -89,9 +88,7 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
             />
           ))}
 
-          <div className="w-72">
-            <button className="block w-full bg-gray-200 py-2 rounded-sm hover:bg-gray-300">+ Add another column</button>
-          </div>
+          <AddColumnForm handleAddNewColumn={handleAddNewColumn} />
         </div>
       </DragDropContext>
     </div>

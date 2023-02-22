@@ -6,7 +6,7 @@ export interface IColumn {
 
 export interface ICard {
   id: string;
-  title: string;
+  title?: string;
   description?: string;
 }
 
@@ -24,4 +24,10 @@ export interface IBoard {
   id: string;
   name: string;
   description: string;
+}
+
+export interface IComment {
+  author: string;
+  time: Date;
+  message: string;
 }

@@ -1,11 +1,43 @@
-import { useState } from "react";
-import { IBoardState, IColumn } from "./types";
+import { useEffect, useState } from "react";
+import { IBoardState, ICard, IColumn } from "./types";
 import { DropResult } from "react-beautiful-dnd";
 
 
 
 const useDraggable = (initialData: IBoardState) => {
     const [boardData, setBoardData] = useState<IBoardState>(initialData);
+
+    const handleAddNewCard = (newCard: ICard, columnId: string) : void => {
+
+      setBoardData((x: IBoardState) => {
+  
+        const cards = {
+          ...x.cards,
+          [newCard.id]: newCard,
+        }
+  
+  
+  
+        const column = {
+          ...x.columns[columnId],
+          cardIds: [
+            ...x.columns[columnId].cardIds,
+            newCard.id
+          ]
+        }
+  
+        const columns = {
+          ...x.columns,
+          [columnId]: column
+        }
+  
+        return {
+          ...x,
+          cards: cards,
+          columns: columns
+        }
+      })
+    }
 
     const handleDragEnd = (result: DropResult): void => {
         const { destination, source, draggableId } = result;
@@ -89,6 +121,7 @@ const useDraggable = (initialData: IBoardState) => {
 
       return {
         handleDragEnd,
+        handleAddNewCard,
         columns: boardData.columnOrder.map(x => boardData.columns[x]),
         cards: boardData.cards,
       }

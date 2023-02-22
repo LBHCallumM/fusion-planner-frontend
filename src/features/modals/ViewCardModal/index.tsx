@@ -6,6 +6,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import TimeAgo from "react-timeago";
 
 import Modal from "../Modal";
+import placeholderComments from "./placeholderComments";
 
 interface Props {
   modalVisible: boolean;
@@ -16,74 +17,8 @@ interface Props {
   columnId: string;
 }
 
-interface IComment {
-  author: string;
-  time: Date;
-  message: string;
-}
 
-const placeholderComments: Array<IComment> = [
-  {
-    author: "Callum Macpherson",
-    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
-    message: "Blah blah something",
-  },
-  {
-    author: "Callum Macpherson",
-    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
-    message: "Blah blah something",
-  },
-  {
-    author: "Callum Macpherson",
-    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
-    message: "Blah blah something",
-  },
-  {
-    author: "Callum Macpherson",
-    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
-    message: "Blah blah something",
-  },
-  {
-    author: "Callum Macpherson",
-    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
-    message: "Blah blah something",
-  },
-  {
-    author: "Callum Macpherson",
-    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
-    message: "Blah blah something",
-  },
-  {
-    author: "Callum Macpherson",
-    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
-    message: "Blah blah something",
-  },
-  {
-    author: "Callum Macpherson",
-    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
-    message: "Blah blah something",
-  },
-  {
-    author: "Callum Macpherson",
-    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
-    message: "Blah blah something",
-  },
-  {
-    author: "Callum Macpherson",
-    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
-    message: "Blah blah something",
-  },
-  {
-    author: "Callum Macpherson",
-    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
-    message: "Blah blah something",
-  },
-  {
-    author: "Callum Macpherson",
-    time: new Date(Date.now() - Math.floor(Math.random() * 31536000000)),
-    message: "Blah blah something",
-  },
-];
+
 
 const ViewCardModal = ({
   modalVisible,
@@ -109,7 +44,7 @@ const ViewCardModal = ({
       // check if still needed
       if (card?.id === null) return;
 
-      setComments(placeholderComments);
+      setComments(placeholderComments());
       setLoadingComments(false);
     }, 1000);
 

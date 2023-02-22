@@ -15,10 +15,8 @@ interface Props {
   boardId: string;
   columnName: string;
   columnId: string;
+  handleDeleteCard: (cardId: string, columnId: string) => void;
 }
-
-
-
 
 const ViewCardModal = ({
   modalVisible,
@@ -27,6 +25,7 @@ const ViewCardModal = ({
   handleClose,
   card,
   boardId,
+  handleDeleteCard
 }: Props) => {
   const [editingDescription, setEditingDescription] = useState<boolean>(false);
   const [comments, setComments] = useState<Array<IComment> | null>(null);
@@ -53,6 +52,14 @@ const ViewCardModal = ({
       document.title = card.title;
     }
   }, [card?.id]);
+
+  const deleteCard = () => {
+
+
+    handleDeleteCard(card.id, columnId)
+    handleClose()
+
+  }
 
   const handleEditDescription = () => {
     setEditingDescription(true);
@@ -256,7 +263,7 @@ const ViewCardModal = ({
                   Actions
                 </div>
 
-                <button className="bg-gray-100 px-2 py w-full rounded-sm text-gray-600 text-left hover:bg-gray-200 flex">
+                <button className="bg-gray-100 px-2 py w-full rounded-sm text-gray-600 text-left hover:bg-gray-200 flex" onClick={deleteCard}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

@@ -10,13 +10,18 @@ export interface ICard {
   description?: string;
 }
 
-export interface IBoard {
+export interface IBoardState {
   columns: {
     [key: string]: IColumn;
   }
   cards: {
     [key: string]: ICard
   }
-  columnOrder: Array<string>
-  
+  columnOrder: Array<string>  
+}
+
+export interface IBoard {
+  id: string;
+  name: string;
+  description: string;
 }

@@ -2,10 +2,10 @@ import { DragDropContext } from "react-beautiful-dnd";
 
 import Column from "../Column";
 import useDraggable from "../useDraggable";
-import { IBoard } from "../types";
+import { IBoardState } from "../types";
 
 interface Props {
-  initialData: IBoard;
+  initialData: IBoardState;
   boardId: string;
 }
 

@@ -1,6 +1,6 @@
-import { IBoard } from "./types";
+import { IBoardState } from "./types";
 
-const initialData: IBoard = {
+const initialData: IBoardState = {
   columns: {
     "1": {
       id: "1",

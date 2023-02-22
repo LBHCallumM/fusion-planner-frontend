@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { IBoard, IColumn } from "./types";
+import { IBoardState, IColumn } from "./types";
 import { DropResult } from "react-beautiful-dnd";
 
 
 
-const useDraggable = (initialData: IBoard) => {
-    const [boardData, setBoardData] = useState<IBoard>(initialData);
+const useDraggable = (initialData: IBoardState) => {
+    const [boardData, setBoardData] = useState<IBoardState>(initialData);
 
     const handleDragEnd = (result: DropResult): void => {
         const { destination, source, draggableId } = result;

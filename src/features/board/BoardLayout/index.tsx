@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Board from "../Board";
 import TaskBar from "../TaskBar";
-import { IBoard, ICard } from "../types";
+import { IBoardState, ICard } from "../types";
 import initialData from "../initialData";
 import ViewCardModal from "../../modals/ViewCardModal";
 import { useRouter } from "next/router";
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const BoardLayout = ({ boardId, cardId, columnId }: Props) => {
-  const [boardData, setBoardData] = useState<IBoard | null>(null);
+  const [boardData, setBoardData] = useState<IBoardState | null>(null);
 
   const [modal, setModal] = useState<ICard | null>(null);
 

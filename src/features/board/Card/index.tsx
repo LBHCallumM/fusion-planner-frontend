@@ -15,11 +15,11 @@ const Card = ({ card, index, boardId, columnId }: Props) => {
 
   const handleViewCard = () => {
 
-    router.push(`/boards/${boardId}/cards/${columnId}/${card.id}`);
+    router.push(`/boards/${boardId}/cards/${columnId}/${card?.id}`);
   };
 
   return (
-    <Draggable draggableId={card.id} index={index}>
+    <Draggable draggableId={card?.id} index={index}>
       {(provided, snapshot) => (
         <li
           ref={provided.innerRef}
@@ -31,9 +31,9 @@ const Card = ({ card, index, boardId, columnId }: Props) => {
           onClick={handleViewCard}
         >
           <div>
-            <div>{card.title}</div>
+            <div>{card?.title}</div>
             <div>
-              {card.description && (
+              {card?.description && (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

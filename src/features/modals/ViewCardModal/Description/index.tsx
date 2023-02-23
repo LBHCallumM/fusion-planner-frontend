@@ -48,6 +48,7 @@ const Description = ({ description }: Props) => {
               maxRows={12}
               defaultValue={description}
               className="border border-solid border-gray-500 w-full block rounded-sm p-2 min-h-full"
+              autoFocus
             />
 
             <div className="mt-2 gap-x-2 flex">

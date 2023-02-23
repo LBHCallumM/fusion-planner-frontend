@@ -3,18 +3,28 @@ import ReactTextareaAutosize from "react-textarea-autosize";
 
 interface Props {
   description: string;
+  cardId: string;
+  handleUpdateDescription: (newDescription: string, cardId: string) => void
 }
 
-const Description = ({ description }: Props) => {
+const Description = ({ description, cardId, handleUpdateDescription }: Props) => {
   const [editingDescription, setEditingDescription] = useState<boolean>(false);
+  const [newDescription, setNewDescription] = useState<string>(description)
 
-  const handleEditDescription = () => {
+  const handleStartEditingDescription = () => {
     setEditingDescription(true);
   };
 
   const handleOnCancelEdit = () => {
     setEditingDescription(false);
+    // revert to default
+    setNewDescription(description)
   };
+
+  const handleSaveChanges = () => {
+    handleUpdateDescription(newDescription, cardId)
+    setEditingDescription(false)
+  }
 
   return (
     <>
@@ -34,7 +44,7 @@ const Description = ({ description }: Props) => {
         </svg>
         <span className="font-medium">Description</span>{" "}
         {description && (
-          <button className="bg-gray-200 ml-2 text-gray-600 px-2 py rounded-sm">
+          <button onClick={handleStartEditingDescription} className="bg-gray-200 ml-2 text-gray-600 px-2 py rounded-sm">
             Edit
           </button>
         )}
@@ -49,11 +59,13 @@ const Description = ({ description }: Props) => {
               defaultValue={description}
               className="border border-solid border-gray-500 w-full block rounded-sm p-2 min-h-full"
               autoFocus
+              value={newDescription}
+              onInput={e => setNewDescription(e.target.value)}
             />
 
             <div className="mt-2 gap-x-2 flex">
               <button
-                onClick={handleOnCancelEdit}
+                onClick={handleSaveChanges}
                 className="bg-gray-600 text-gray-200 px-4 py-2 rounded-sm"
               >
                 Save
@@ -69,7 +81,7 @@ const Description = ({ description }: Props) => {
         ) : (
           <div
             role="button"
-            onClick={handleEditDescription}
+            onClick={handleStartEditingDescription}
             className="bg-gray-100 text-gray-600 p-3 rounded-sm"
           >
             {description ? description : "Add a more detailed description..."}

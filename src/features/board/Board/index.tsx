@@ -18,7 +18,7 @@ interface Props {
 
 const Board = ({ boardId, columnId, cardId }: Props) => {
   const [boardData, setBoardData] = useState<IBoardState | null>(null);
-  const { handleDragEnd, columns, cards, handleAddNewCard, handleAddNewColumn, handleDeleteCard } = useDraggable(initialData);
+  const { handleDragEnd, columns, cards, handleAddNewCard, handleUpdateDescription, handleAddNewColumn, handleDeleteCard } = useDraggable(initialData);
   const [viewCardModal, setViewCardModal] = useState<ICard | null>(null);
 
   const router = useRouter();
@@ -70,6 +70,7 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
         columnName={columnId && boardData?.columns[columnId]?.name}
         columnId={columnId}
         handleDeleteCard={handleDeleteCard}
+        handleUpdateDescription={handleUpdateDescription}
       />
       {boardData === null ? (
         <>

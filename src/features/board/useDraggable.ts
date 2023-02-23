@@ -5,6 +5,27 @@ import { DropResult } from "react-beautiful-dnd";
 const useDraggable = (initialData: IBoardState) => {
   const [boardData, setBoardData] = useState<IBoardState>(initialData);
 
+
+  const handleUpdateDescription = (newDescription: string, cardId: string) => {
+    setBoardData(x => {
+
+      const updatedCard: ICard = {
+        ...x.cards[cardId],
+        description: newDescription
+      }
+
+      const cards = {
+        ...x.cards,
+        [cardId]: updatedCard
+      }
+
+      return {
+        ...x,
+        cards
+      }
+    })
+  }
+
   const handleDeleteCard = (cardId: string, columnId: string) => {
     setBoardData(x => {
 
@@ -158,6 +179,7 @@ const useDraggable = (initialData: IBoardState) => {
     handleAddNewCard,
     handleAddNewColumn,
     handleDeleteCard,
+    handleUpdateDescription,
     columns: boardData.columnOrder.map((x) => boardData.columns[x]),
     cards: boardData.cards,
   };

@@ -89,12 +89,14 @@ const actions = {
   reorderCard:
     (result: DropResult): Action<State> =>
     ({ getState, setState }) => {
-      const { destination, source, draggableId } = result;
+      const { destination, source } = result;
 
+      // not dropped in a valid location
       if (!destination) {
         return;
       }
 
+      // dropped in the same location
       if (
         destination.droppableId === source.droppableId &&
         destination.index === source.index
@@ -104,9 +106,8 @@ const actions = {
 
       // Same Column
       if (source.droppableId === destination.droppableId) {
-        const column: IColumn = JSON.parse(
-          JSON.stringify(getState().columns[source.droppableId])
-        );
+
+        const column = getState().columns[source.droppableId]
 
         const cardIds = column.cardIds.slice();
         const cardId = cardIds[source.index];

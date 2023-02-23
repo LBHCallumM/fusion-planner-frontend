@@ -1,4 +1,4 @@
-import BoardLayout from "@/features/board/BoardLayout";
+import Board from "@/features/board/Board";
 
 // https://heroicons.com/
 
@@ -9,7 +9,7 @@ const BoardPage = () => {
   const { slug } = router.query;
 
   return (
-    <>{slug && <BoardLayout boardId={slug[0]} columnId={slug[2] || null} cardId={slug[3] || null} />}</>
+    <>{slug && <Board boardId={slug[0]} columnId={slug[2] || null} cardId={slug[3] || null} />}</>
   );
 };
 

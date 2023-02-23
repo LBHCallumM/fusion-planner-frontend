@@ -1,8 +1,8 @@
 import { useState } from "react";
 import ReactTextareaAutosize from "react-textarea-autosize";
-import { getNextBoardId } from "../boardHelper";
-import { createState } from "../state";
-import { IColumn } from "../types";
+import { getNextBoardId } from "../../boardHelper";
+import { createState } from "../../state";
+import { IColumn } from "../../types";
 
 interface Props {}
 

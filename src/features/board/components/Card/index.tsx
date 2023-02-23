@@ -1,5 +1,5 @@
 import { Draggable } from "react-beautiful-dnd";
-import { ICard } from "../types";
+import { ICard } from "../../types";
 
 import { useRouter } from "next/router";
 

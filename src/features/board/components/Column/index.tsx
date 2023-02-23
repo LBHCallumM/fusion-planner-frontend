@@ -1,12 +1,12 @@
 import { Droppable } from "react-beautiful-dnd";
 
-import { IColumn, ICard } from "../types";
+import { IColumn, ICard } from "../../types";
 import Card from "../Card";
 import { useState } from "react";
 
 import TextareaAutosize from "react-textarea-autosize";
-import { getNextCardId } from "../boardHelper";
-import { createState } from "../state";
+import { getNextCardId } from "../../boardHelper";
+import { createState } from "../../state";
 
 interface Props {
   column: IColumn;

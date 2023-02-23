@@ -1,14 +1,14 @@
 import { DragDropContext } from "react-beautiful-dnd";
 
 import Column from "../Column";
-import { ICard } from "../types";
+import { ICard } from "../../types";
 import ViewCardModal from "@/features/modals/ViewCardModal";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import initialData from "../initialData";
+import initialData from "../../initialData";
 import AddColumnForm from "../AddColumnForm";
 import TaskBar from "../TaskBar";
-import { createState } from "../state";
+import { createState } from "../../state";
 
 interface Props {
   boardId: string;

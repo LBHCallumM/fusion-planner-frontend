@@ -1,4 +1,4 @@
-import Board from "@/features/board/Board";
+import Board from "@/features/board/components/Board";
 
 // https://heroicons.com/
 

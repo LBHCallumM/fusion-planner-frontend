@@ -19,11 +19,15 @@ const Column = ({ column, boardId }: Props) => {
 
   const [{ cards }, { addCard }] = createState();
 
+  const handleOnInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewCardName(e.target.value)
+  }
+
   const handleOpenCardEditor = () => {
     setIsAddingCard(true);
   };
 
-  const handleAddCard = (e) => {
+  const handleAddCard = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     const newCard: ICard = { title: newCardName, id: getNextCardId() };
@@ -94,7 +98,7 @@ const Column = ({ column, boardId }: Props) => {
                   rows={10}
                   className="bg-gray-50 w-full p-2 flex justify-between rounded-sm text-gray-700 shadow-sm hover:bg-gray-100 border-gray-300 group"
                   value={newCardName}
-                  onInput={(e) => setNewCardName(e.target.value)}
+                  onInput={handleOnInput}
                   autoFocus
                 />
 

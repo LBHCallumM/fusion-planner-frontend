@@ -1,14 +1,15 @@
 import { IComment } from "@/features/board/types";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactTimeago from "react-timeago";
-import placeholderComments from "../placeholderComments";
+import placeholderComments from "./placeholderComments";
 
 interface Props {
   cardId: string | null;
 }
 
 const Activity = ({ cardId }: Props) => {
-  const [comments, setComments] = useState<Array<IComment> | null>(null);
+  const [newComment, setNewComment] = useState<string>("");
+  const [comments, setComments] = useState<Array<IComment>>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -24,6 +25,33 @@ const Activity = ({ cardId }: Props) => {
       setLoading(false);
     }, 1000);
   }, [cardId]);
+
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+
+    if (newComment === "") return;
+
+    // add comment
+    const newMessage: IComment = {
+      author: "Callum Macpherson",
+      message: newComment,
+      time: new Date(),
+    };
+
+    setComments((x) => [newMessage, ...x]);
+
+    // reset
+
+    setNewComment("");
+  };
+
+  const handleCancel = () => {
+    setNewComment("");
+  };
+
+  const handleOnInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewComment(e.target.value);
+  };
 
   return (
     <>
@@ -48,22 +76,33 @@ const Activity = ({ cardId }: Props) => {
       {/* Add Comment */}
 
       <div className="ml-8 bg-gray-100 p-2 rounded-sm">
-        <input
-          type="text"
-          name=""
-          id=""
-          placeholder="Write a comment..."
-          className="w-full px-2 py-2 rounded-sm border border-solid border-gray-400 block"
-        />
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name=""
+            id=""
+            placeholder="Write a comment..."
+            className="w-full px-2 py-2 rounded-sm border border-solid border-gray-400 block"
+            value={newComment}
+            onInput={handleOnInput}
+          />
 
-        <div className="flex gap-x-2">
-          <button className="bg-gray-600 text-gray-50 px-4 py-2 rounded-sm mt-2">
-            Send
-          </button>
-          <button className="bg-gray-600 text-gray-50 px-4 py-2 rounded-sm mt-2">
-            Cancel
-          </button>
-        </div>
+          <div className="flex gap-x-2">
+            <button
+              type="submit"
+              className="bg-gray-600 text-gray-50 px-4 py-2 rounded-sm mt-2"
+            >
+              Send
+            </button>
+            <button
+              type="button"
+              onClick={handleCancel}
+              className="bg-gray-600 text-gray-50 px-4 py-2 rounded-sm mt-2"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
 
       <div>
@@ -84,10 +123,12 @@ const Activity = ({ cardId }: Props) => {
                     <div className="bg-gray-50 rounded-sm p-2 my-1 shadow-sm">
                       {comment.message}
                     </div>
-                    <div className="flex gap-x-2 font-light underline text-gray-500">
-                      <button>Edit</button>
-                      <button>Delete</button>
-                    </div>
+                    {comment.author === "Callum Macpherson" && (
+                      <div className="flex gap-x-2 font-light underline text-gray-500">
+                        <button>Edit</button>
+                        <button>Delete</button>
+                      </div>
+                    )}
                   </div>
                 </li>
               ))}

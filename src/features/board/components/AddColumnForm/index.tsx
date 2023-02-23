@@ -17,7 +17,11 @@ const AddColumnForm = ({}: Props) => {
     setNewColumnName("");
   };
 
-  const handleSubmit = (e) => {
+  const handleOnInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewColumnName(e.target.value)
+  }
+
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     if (newColumnName === "") return;
@@ -39,13 +43,11 @@ const AddColumnForm = ({}: Props) => {
       {isEditing ? (
         <div className="bg-gray-200 p-2">
           <ReactTextareaAutosize
-            name=""
-            id=""
             cols={30}
             rows={10}
             className="bg-gray-50 w-full p-2 flex justify-between rounded-sm text-gray-700 shadow-sm hover:bg-gray-100 border-gray-300 group"
             value={newColumnName}
-            onInput={(e) => setNewColumnName(e.target.value)}
+            onInput={handleOnInput}
             autoFocus
           />
 

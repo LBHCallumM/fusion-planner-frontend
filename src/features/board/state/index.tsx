@@ -1,8 +1,8 @@
 import { DropResult } from "react-beautiful-dnd";
 import { Action, createHook, createStore } from "react-sweet-state";
-import { IBoardState, ICard, IColumn } from "../types";
+import { ICard, IColumn } from "../types";
 
-type State = {
+export type State = {
   columns: {
     [key: string]: IColumn;
   };
@@ -22,7 +22,7 @@ type Actions = typeof actions;
 
 const actions = {
   initBoard:
-    (initialState: IBoardState): Action<State> =>
+    (initialState: State): Action<State> =>
     ({ getState, setState }) => {
       setState({
         ...initialState,

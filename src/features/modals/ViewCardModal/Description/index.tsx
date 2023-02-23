@@ -14,6 +14,9 @@ const Description = ({ description, card }: Props) => {
 
   const [state, { editCard }] = createState();
 
+  const handleOnInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNewDescription(e.target.value)
+  }
 
   const handleStartEditingDescription = () => {
     setEditingDescription(true);
@@ -60,11 +63,10 @@ const Description = ({ description, card }: Props) => {
             <ReactTextareaAutosize
               minRows={6}
               maxRows={12}
-              defaultValue={description}
               className="border border-solid border-gray-500 w-full block rounded-sm p-2 min-h-full"
               autoFocus
               value={newDescription}
-              onInput={e => setNewDescription(e.target.value)}
+              onInput={handleOnInput}
             />
 
             <div className="mt-2 gap-x-2 flex">

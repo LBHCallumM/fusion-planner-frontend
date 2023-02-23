@@ -1,5 +1,4 @@
-// import Rodal from 'rodal';
-import { ICard } from "@/features/board/types";
+import { ICard, IComment } from "@/features/board/types";
 import { useEffect, useState } from "react";
 
 import TextareaAutosize from "react-textarea-autosize";
@@ -13,8 +12,8 @@ interface Props {
   handleClose: Function;
   card: ICard | null;
   boardId: string;
-  columnName: string;
-  columnId: string;
+  columnName: string | null;
+  columnId: string | null;
   handleDeleteCard: (cardId: string, columnId: string) => void;
 }
 

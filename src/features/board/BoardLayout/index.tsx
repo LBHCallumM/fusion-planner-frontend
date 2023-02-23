@@ -2,8 +2,8 @@ import Board from "../Board";
 
 interface Props {
   boardId: string;
-  cardId?: string;
-  columnId?: string;
+  cardId: string | null;
+  columnId: string | null;
 }
 
 const BoardLayout = ({ boardId, cardId, columnId }: Props) => {

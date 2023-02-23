@@ -75,9 +75,14 @@ const AddColumnForm = ({ handleAddNewColumn }:Props) => {
           </form>
         </div>
       ) : (
-        <button className="block w-full bg-gray-200 py-2 rounded-sm hover:bg-gray-300" onClick={() => setIsEditing(true)}>
-          <div className="font-semibold text-gray-700 ">
-            + Add another column
+        <button className="block w-full bg-gray-200 p-2 rounded-sm hover:bg-gray-300" onClick={() => setIsEditing(true)}>
+          <div className="font-semibold text-gray-700 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+</svg>
+ 
+
+            <span>Add another column</span>
           </div>
         </button>
       )}

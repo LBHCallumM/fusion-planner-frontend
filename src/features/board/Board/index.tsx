@@ -8,11 +8,12 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import initialData from "../initialData";
 import AddColumnForm from "../AddColumnForm";
+import TaskBar from "../TaskBar";
 
 interface Props {
   boardId: string;
-  cardId?: string;
-  columnId?: string;
+  cardId: string | null;
+  columnId: string | null;
 }
 
 const Board = ({ boardId, columnId, cardId }: Props) => {
@@ -66,7 +67,7 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
         modalVisible={viewCardModal !== null}
         handleClose={closeViewCardModal}
         boardId={boardId}
-        columnName={boardData?.columns[columnId]?.name}
+        columnName={columnId && boardData?.columns[columnId]?.name}
         columnId={columnId}
         handleDeleteCard={handleDeleteCard}
       />
@@ -76,7 +77,11 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
         </>
       ) : (
         // Eventually add Skeleton
-        <div className="p-2 mt-2 overflow-auto">
+     <>
+
+        <TaskBar title="Board One" />
+
+   <div className="p-2 mt-2 overflow-auto">
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="flex space-x-2">
           {columns.map((column) => (
@@ -93,6 +98,7 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
         </div>
       </DragDropContext>
     </div>
+     </>
       )}
     </>
     

@@ -1,3 +1,4 @@
+import { createState } from "@/features/board/state";
 import { ICard } from "@/features/board/types";
 import { useEffect } from "react";
 import Modal from "../Modal";
@@ -13,8 +14,6 @@ interface Props {
   boardId: string;
   columnName: string | null;
   columnId: string | null;
-  handleDeleteCard: (cardId: string, columnId: string) => void;
-  handleEditCard: (cardId: ICard) => void
 }
 
 const ViewCardModal = ({
@@ -24,18 +23,19 @@ const ViewCardModal = ({
   handleClose,
   card,
   boardId,
-  handleDeleteCard,
-  handleEditCard,
-}: Props) => {
+}: // handleDeleteCard,
+Props) => {
+  const [state, { deleteCard }] = createState();
+
   useEffect(() => {
-      // set title
+    // set title
     if (card?.title) {
       document.title = card.title;
     }
   }, [card?.id]);
 
-  const deleteCard = () => {
-    handleDeleteCard(card.id, columnId);
+  const handleDeleteCard = () => {
+    deleteCard(card.id, columnId);
     handleClose();
   };
 
@@ -70,12 +70,12 @@ const ViewCardModal = ({
 
           <div className=" grid md:space-x-4 grid-cols-[1fr] md:grid-cols-[3fr,1fr] mt-4">
             <div>
-              <Description description={card.description} card={card} handleEditCard={handleEditCard} />
+              <Description description={card.description} card={card} />
 
               <Activity cardId={card?.id} />
             </div>
 
-            <Actions handleDeleteCard={deleteCard} />
+            <Actions handleDeleteCard={handleDeleteCard} />
           </div>
         </div>
       )}

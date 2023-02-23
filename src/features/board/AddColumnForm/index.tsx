@@ -1,36 +1,37 @@
 import { useState } from "react";
 import ReactTextareaAutosize from "react-textarea-autosize";
 import { getNextBoardId } from "../boardHelper";
+import { createState } from "../state";
 import { IColumn } from "../types";
 
-interface Props {
-    handleAddNewColumn: (newColumn: IColumn) => void
-}
+interface Props {}
 
-const AddColumnForm = ({ handleAddNewColumn }:Props) => {
+const AddColumnForm = ({}: Props) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [newColumnName, setNewColumnName] = useState<string>("");
 
+  const [state, { addColumn }] = createState();
+
   const handleClose = () => {
     setIsEditing(false);
-    setNewColumnName("")
+    setNewColumnName("");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (newColumnName === "") return
+    if (newColumnName === "") return;
 
     const newColumn: IColumn = {
-        cardIds: [],
-        id: getNextBoardId(),
-        name: newColumnName
-    }
+      cardIds: [],
+      id: getNextBoardId(),
+      name: newColumnName,
+    };
 
-    handleAddNewColumn(newColumn)
+    addColumn(newColumn);
 
-    setNewColumnName("")
-    setIsEditing(false)
+    setNewColumnName("");
+    setIsEditing(false);
   };
 
   return (
@@ -76,12 +77,25 @@ const AddColumnForm = ({ handleAddNewColumn }:Props) => {
           </form>
         </div>
       ) : (
-        <button className="block w-full bg-gray-200 p-2 rounded-sm hover:bg-gray-300" onClick={() => setIsEditing(true)}>
+        <button
+          className="block w-full bg-gray-200 p-2 rounded-sm hover:bg-gray-300"
+          onClick={() => setIsEditing(true)}
+        >
           <div className="font-semibold text-gray-700 flex items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-</svg>
- 
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6 mr-2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
+            </svg>
 
             <span>Add another column</span>
           </div>

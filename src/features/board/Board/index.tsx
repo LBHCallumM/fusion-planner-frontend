@@ -20,10 +20,8 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [viewCardModal, setViewCardModal] = useState<ICard | null>(null);
 
-  const [
-    { cards, columnOrder, columns },
-    { deleteCard, editCard, addCard, addColumn, initBoard, reorderCard },
-  ] = createState();
+  const [{ cards, columnOrder, columns }, { initBoard, reorderCard }] =
+    createState();
 
   const router = useRouter();
 
@@ -62,8 +60,6 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
   };
 
   const closeViewCardModal = (): void => {
-    // setModal(null)
-
     router.push(`/boards/${boardId}/`);
   };
 
@@ -76,8 +72,6 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
         boardId={boardId}
         columnName={columnId && columns[columnId]?.name}
         columnId={columnId}
-        handleDeleteCard={deleteCard}
-        handleEditCard={editCard}
       />
 
       {loading ? (
@@ -95,16 +89,10 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
                 {columnOrder
                   .map((x) => columns[x])
                   .map((column) => (
-                    <Column
-                      key={column.id}
-                      column={column}
-                      cards={cards}
-                      boardId={boardId}
-                      handleAddNewCard={addCard}
-                    />
+                    <Column key={column.id} column={column} boardId={boardId} />
                   ))}
 
-                <AddColumnForm handleAddNewColumn={addColumn} />
+                <AddColumnForm />
               </div>
             </DragDropContext>
           </div>

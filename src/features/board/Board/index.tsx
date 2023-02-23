@@ -1,14 +1,14 @@
 import { DragDropContext } from "react-beautiful-dnd";
 
 import Column from "../Column";
-import useDraggable from "../useDraggable";
-import { IBoardState, ICard } from "../types";
+import { ICard } from "../types";
 import ViewCardModal from "@/features/modals/ViewCardModal";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import initialData from "../initialData";
 import AddColumnForm from "../AddColumnForm";
 import TaskBar from "../TaskBar";
+import { createState } from "../state";
 
 interface Props {
   boardId: string;
@@ -17,17 +17,24 @@ interface Props {
 }
 
 const Board = ({ boardId, columnId, cardId }: Props) => {
-  const [boardData, setBoardData] = useState<IBoardState | null>(null);
-  const { handleDragEnd, columns, cards, handleAddNewCard, handleUpdateDescription, handleAddNewColumn, handleDeleteCard } = useDraggable(initialData);
+  const [loading, setLoading] = useState<boolean>(true);
   const [viewCardModal, setViewCardModal] = useState<ICard | null>(null);
+
+  const [
+    { cards, columnOrder, columns },
+    { deleteCard, editCard, addCard, addColumn, initBoard, reorderCard },
+  ] = createState();
 
   const router = useRouter();
 
   useEffect(() => {
     setTimeout(() => {
-      setBoardData(initialData);
+      initBoard(initialData);
+      setLoading(false);
     }, 0);
+  }, []);
 
+  useEffect(() => {
     document.title = "Board One";
   }, [cardId]);
 
@@ -62,47 +69,48 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
 
   return (
     <>
-    <ViewCardModal
+      <ViewCardModal
         card={viewCardModal}
         modalVisible={viewCardModal !== null}
         handleClose={closeViewCardModal}
         boardId={boardId}
-        columnName={columnId && boardData?.columns[columnId]?.name}
+        columnName={columnId && columns[columnId]?.name}
         columnId={columnId}
-        handleDeleteCard={handleDeleteCard}
-        handleUpdateDescription={handleUpdateDescription}
+        handleDeleteCard={deleteCard}
+        handleEditCard={editCard}
       />
-      {boardData === null ? (
+
+      {loading ? (
         <>
           <p>Loading...</p>
         </>
       ) : (
         // Eventually add Skeleton
-     <>
+        <>
+          <TaskBar title="Board One" />
 
-        <TaskBar title="Board One" />
+          <div className="p-2 mt-2 overflow-auto">
+            <DragDropContext onDragEnd={reorderCard}>
+              <div className="flex space-x-2">
+                {columnOrder
+                  .map((x) => columns[x])
+                  .map((column) => (
+                    <Column
+                      key={column.id}
+                      column={column}
+                      cards={cards}
+                      boardId={boardId}
+                      handleAddNewCard={addCard}
+                    />
+                  ))}
 
-   <div className="p-2 mt-2 overflow-auto">
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="flex space-x-2">
-          {columns.map((column) => (
-            <Column
-              key={column.id}
-              column={column}
-              cards={cards}
-              boardId={boardId}
-              handleAddNewCard={handleAddNewCard}
-            />
-          ))}
-
-          <AddColumnForm handleAddNewColumn={handleAddNewColumn} />
-        </div>
-      </DragDropContext>
-    </div>
-     </>
+                <AddColumnForm handleAddNewColumn={addColumn} />
+              </div>
+            </DragDropContext>
+          </div>
+        </>
       )}
     </>
-    
   );
 };
 

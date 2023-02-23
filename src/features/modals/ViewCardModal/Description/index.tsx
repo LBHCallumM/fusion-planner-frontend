@@ -1,13 +1,14 @@
+import { ICard } from "@/features/board/types";
 import { useState } from "react";
 import ReactTextareaAutosize from "react-textarea-autosize";
 
 interface Props {
   description: string;
-  cardId: string;
-  handleUpdateDescription: (newDescription: string, cardId: string) => void
+  card: ICard;
+  handleEditCard: (card: ICard) => void
 }
 
-const Description = ({ description, cardId, handleUpdateDescription }: Props) => {
+const Description = ({ description, card, handleEditCard }: Props) => {
   const [editingDescription, setEditingDescription] = useState<boolean>(false);
   const [newDescription, setNewDescription] = useState<string>(description)
 
@@ -22,7 +23,7 @@ const Description = ({ description, cardId, handleUpdateDescription }: Props) =>
   };
 
   const handleSaveChanges = () => {
-    handleUpdateDescription(newDescription, cardId)
+    handleEditCard({ ...card, description: newDescription })
     setEditingDescription(false)
   }
 

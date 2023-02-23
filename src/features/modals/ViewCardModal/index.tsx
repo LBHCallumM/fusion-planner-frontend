@@ -14,7 +14,7 @@ interface Props {
   columnName: string | null;
   columnId: string | null;
   handleDeleteCard: (cardId: string, columnId: string) => void;
-  handleUpdateDescription: (newDescription: string, cardId: string) => void
+  handleEditCard: (cardId: ICard) => void
 }
 
 const ViewCardModal = ({
@@ -25,7 +25,7 @@ const ViewCardModal = ({
   card,
   boardId,
   handleDeleteCard,
-  handleUpdateDescription,
+  handleEditCard,
 }: Props) => {
   useEffect(() => {
       // set title
@@ -70,7 +70,7 @@ const ViewCardModal = ({
 
           <div className=" grid md:space-x-4 grid-cols-[1fr] md:grid-cols-[3fr,1fr] mt-4">
             <div>
-              <Description description={card.description} cardId={card?.id} handleUpdateDescription={handleUpdateDescription} />
+              <Description description={card.description} card={card} handleEditCard={handleEditCard} />
 
               <Activity cardId={card?.id} />
             </div>

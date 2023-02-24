@@ -14,7 +14,7 @@ const Activity = ({ cardId }: Props) => {
 
   useEffect(() => {
     // fetch new comments
-    setComments(null);
+    setComments([]);
     setLoading(true);
 
     setTimeout(() => {
@@ -53,8 +53,14 @@ const Activity = ({ cardId }: Props) => {
     setNewComment(e.target.value);
   };
 
+  const handleDeleteComment = (index: number) => {
+    setComments(x => x.filter((y, i) => i !== index))
+  }
+
   return (
     <>
+      {/* Refactor icons as components */}
+      {/* Then create headings as components, with icons as an optional prop */}
       <h2 className="text-lg text-gray-800 mb-2 flex items-center mt-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -113,6 +119,7 @@ const Activity = ({ cardId }: Props) => {
             {comments &&
               comments.map((comment, index) => (
                 <li key={index}>
+                  {/* Add EditComment functionality */}
                   <div className="">
                     <div>
                       <span className="font-semibold mr">{comment.author}</span>{" "}
@@ -126,7 +133,7 @@ const Activity = ({ cardId }: Props) => {
                     {comment.author === "Callum Macpherson" && (
                       <div className="flex gap-x-2 font-light underline text-gray-500">
                         <button>Edit</button>
-                        <button>Delete</button>
+                        <button onClick={() => handleDeleteComment(index)}>Delete</button>
                       </div>
                     )}
                   </div>

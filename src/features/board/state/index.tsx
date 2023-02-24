@@ -186,7 +186,40 @@ const actions = {
   editColumn:
     (column: IColumn): Action<State> =>
     ({ getState, setState }) => {
-      //
+      const columns = {
+        ...getState().columns,
+        [column.id]: column,
+      };
+      setState({ columns });
+    },
+  reorderColumn:
+    (selectedColumn: string, direction: "left" | "right"): Action<State> =>
+    ({ getState, setState }) => {
+      const columnOrder = [...getState().columnOrder];
+
+      const index = columnOrder.indexOf(selectedColumn);
+
+      // cannot move left
+      if (direction === "left" && index === 0) {
+        return;
+      }
+
+      // cannot move right
+      if (direction === "right" && index === columnOrder.length - 1) {
+        return;
+      }
+
+      columnOrder.splice(index, 1);
+
+      if (direction === "right") {
+        columnOrder.splice(index + 1, 0, selectedColumn);
+      } else {
+        columnOrder.splice(index - 1, 0, selectedColumn);
+      }
+
+      setState({
+        columnOrder,
+      });
     },
 };
 

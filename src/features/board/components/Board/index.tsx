@@ -1,7 +1,7 @@
 import { DragDropContext } from "react-beautiful-dnd";
 
 import Column from "../Column";
-import { ICard } from "../../types";
+import { IBoard, ICard } from "../../types";
 import ViewCardModal from "@/features/modals/ViewCardModal";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ import initialData from "../../state/initialData";
 import AddColumnForm from "../AddColumnForm";
 import TaskBar from "../TaskBar";
 import { createState } from "../../state";
+import EditBoardModal from "@/features/modals/EditBoardModal";
 
 interface Props {
   boardId: string;
@@ -19,11 +20,20 @@ interface Props {
 const Board = ({ boardId, columnId, cardId }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [viewCardModal, setViewCardModal] = useState<ICard | null>(null);
+  const [editBoardModal, setEditBoardModall] = useState<IBoard | null>(null);
 
   const [{ cards, columnOrder, columns }, { initBoard, reorderCard }] =
     createState();
 
   const router = useRouter();
+
+  const handleShowBoard = () => {
+    setEditBoardModall({
+      id: boardId,
+      description: "description",
+      name: "Board One",
+    });
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -74,6 +84,12 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
         columnId={columnId}
       />
 
+      <EditBoardModal
+        board={editBoardModal}
+        handleClose={() => setEditBoardModall(null)}
+        modalVisible={editBoardModal !== null}
+      />
+
       {loading ? (
         <>
           <p>Loading...</p>
@@ -81,7 +97,7 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
       ) : (
         // Eventually add Skeleton
         <>
-          <TaskBar title="Board One" />
+          <TaskBar title="Board One" handleEditBoard={handleShowBoard} />
 
           <div className="p-2 mt-2 overflow-auto">
             <DragDropContext onDragEnd={reorderCard}>

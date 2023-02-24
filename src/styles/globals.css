@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* .draggable {
+    top: auto !important;
+    left: auto !important;
+  }
+
+  [data-rbd-draggable-id] { left: auto !important; top: auto !important; } */
+
+  /* * {
+    background-color: red !important;
+  } */
+
+
+  /* .main {
+    background: #eee;
+    padding: 3rem;
+    height: 200px;
+    overflow-y: scroll;
+  }
+  .droppable {
+    padding: 1rem;
+    background: #aaa;
+  }
+  .draggable {
+    margin: 0.5rem 0;
+    padding: 1rem;
+    background: #ccc;
+  } */

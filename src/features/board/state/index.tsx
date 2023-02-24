@@ -60,11 +60,13 @@ const actions = {
 
       delete cards[cardId];
 
+      const cardIds = getState().columns[columnId].cardIds.filter(
+        (x) => x !== cardId
+      );
+
       const column = {
         ...getState().columns[columnId],
-        cardIds: getState().columns[columnId].cardIds.filter(
-          (x) => x !== cardId
-        ),
+        cardIds,
       };
 
       const columns = {
@@ -77,8 +79,6 @@ const actions = {
   editCard:
     (card: ICard): Action<State> =>
     ({ getState, setState }) => {
-      //
-
       const cards = {
         ...getState().cards,
         [card.id]: card,
@@ -106,8 +106,7 @@ const actions = {
 
       // Same Column
       if (source.droppableId === destination.droppableId) {
-
-        const column = getState().columns[source.droppableId]
+        const column = getState().columns[source.droppableId];
 
         const cardIds = column.cardIds.slice();
         const cardId = cardIds[source.index];
@@ -156,6 +155,7 @@ const actions = {
         ...destinationColumn,
         cardIds: destinationColumnCardIds,
       };
+
       const columns = {
         ...getState().columns,
         [sourceColumn.id]: updatedSourceColumn,
@@ -179,23 +179,15 @@ const actions = {
       setState({ columns, columnOrder });
     },
   deleteColumn:
-    (): Action<State> =>
+    (columnId: string): Action<State> =>
     ({ getState, setState }) => {
       //
     },
   editColumn:
-    (): Action<State> =>
+    (column: IColumn): Action<State> =>
     ({ getState, setState }) => {
       //
     },
-
-  //   updateName:
-  //     (value: string): Action<State> =>
-  //     ({ setState, getState }) => {
-  //       setState({
-  //         name: value,
-  //       });
-  //     },
 };
 
 const Store = createStore<State, Actions>({

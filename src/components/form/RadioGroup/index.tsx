@@ -14,7 +14,7 @@ const RadioGroup = ({ name, options, handleOnChange }: Props) => {
     console.log({ value });
     setSelectedOption(value);
 
-    handleOnChange(value)
+    handleOnChange(value);
   };
 
   return (

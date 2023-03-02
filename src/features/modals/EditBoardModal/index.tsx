@@ -39,4 +39,3 @@ const EditBoardModal = ({ modalVisible, handleClose }: Props) => {
 };
 
 export default EditBoardModal;
-

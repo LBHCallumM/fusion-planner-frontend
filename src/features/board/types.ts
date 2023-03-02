@@ -1,7 +1,7 @@
 export interface IColumn {
   name: string;
   id: string;
-  cardIds: Array<string>
+  cardIds: Array<string>;
 }
 
 export interface ICard {

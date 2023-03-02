@@ -50,4 +50,3 @@ const Store = createStore<State, Actions>({
 });
 
 export const createModalState = createHook(Store);
-

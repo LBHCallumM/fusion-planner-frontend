@@ -90,4 +90,3 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
 };
 
 export default Board;
-

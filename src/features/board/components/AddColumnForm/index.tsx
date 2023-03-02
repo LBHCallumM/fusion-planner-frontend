@@ -18,8 +18,8 @@ const AddColumnForm = ({}: Props) => {
   };
 
   const handleOnInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewColumnName(e.target.value)
-  }
+    setNewColumnName(e.target.value);
+  };
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -108,4 +108,3 @@ const AddColumnForm = ({}: Props) => {
 };
 
 export default AddColumnForm;
-

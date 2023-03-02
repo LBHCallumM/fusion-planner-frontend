@@ -20,7 +20,7 @@ const Column = ({ column, boardId }: Props) => {
 
   const [{ cards }, { addCard }] = createState();
 
-  const [state, { toggleEditColumnModal}] = createModalState()
+  const [state, { toggleEditColumnModal }] = createModalState();
 
   const handleOnInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewCardName(e.target.value);
@@ -163,4 +163,3 @@ const Column = ({ column, boardId }: Props) => {
 };
 
 export default Column;
-

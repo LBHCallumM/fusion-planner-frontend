@@ -9,7 +9,12 @@ const TaskBar = ({ title, handleEditBoard }: Props) => {
       <div className="p-2 container mx-auto flex text-white justify-between">
         <h1 className="text-xl font-bold ">{title}</h1>
 
-        <button onClick={handleEditBoard}  className=" bg-gray-600 rounded-sm px-3">Edit Board</button>
+        <button
+          onClick={handleEditBoard}
+          className=" bg-gray-600 rounded-sm px-3"
+        >
+          Edit Board
+        </button>
       </div>
     </div>
   );

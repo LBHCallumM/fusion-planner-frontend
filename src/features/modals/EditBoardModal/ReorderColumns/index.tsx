@@ -142,7 +142,9 @@ const ReorderColumns = ({ selectedColumnId, setSelectedColumnId }: Props) => {
           type="button"
           onClick={handleUpdateColumnOrder}
           className="bg-gray-600 text-white py-2 px-4 rounded-sm mt-4 disabled:bg-gray-300"
-          disabled={JSON.stringify(columnOrder) === JSON.stringify(newColumnOrder)}
+          disabled={
+            JSON.stringify(columnOrder) === JSON.stringify(newColumnOrder)
+          }
         >
           Save changes
         </button>
@@ -152,4 +154,3 @@ const ReorderColumns = ({ selectedColumnId, setSelectedColumnId }: Props) => {
 };
 
 export default ReorderColumns;
-

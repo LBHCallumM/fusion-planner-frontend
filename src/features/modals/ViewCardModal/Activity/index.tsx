@@ -54,8 +54,8 @@ const Activity = ({ cardId }: Props) => {
   };
 
   const handleDeleteComment = (index: number) => {
-    setComments(x => x.filter((y, i) => i !== index))
-  }
+    setComments((x) => x.filter((y, i) => i !== index));
+  };
 
   return (
     <>
@@ -133,7 +133,9 @@ const Activity = ({ cardId }: Props) => {
                     {comment.author === "Callum Macpherson" && (
                       <div className="flex gap-x-2 font-light underline text-gray-500">
                         <button>Edit</button>
-                        <button onClick={() => handleDeleteComment(index)}>Delete</button>
+                        <button onClick={() => handleDeleteComment(index)}>
+                          Delete
+                        </button>
                       </div>
                     )}
                   </div>
@@ -147,4 +149,3 @@ const Activity = ({ cardId }: Props) => {
 };
 
 export default Activity;
-

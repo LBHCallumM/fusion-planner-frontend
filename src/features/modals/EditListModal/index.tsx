@@ -12,30 +12,29 @@ interface Props {
 
 const EditListModal = ({ modalVisible, handleClose, columnId }: Props) => {
   const [columnName, setColumnName] = useState<string>("");
- 
 
   const [
     { cards, columnOrder, columns },
     { reorderColumns: reorderColumn, editColumn, deleteColumn },
   ] = createState();
 
-  const [destinationColumnId, setDestinationColumnId] = useState<string | null>(columnOrder
-    .filter((x) => x !== columnId)[0]);
+  const [destinationColumnId, setDestinationColumnId] = useState<string | null>(
+    columnOrder.filter((x) => x !== columnId)[0]
+  );
 
   const [selectedRadioOption, setSelectedRadioOption] = useState("1");
 
   useEffect(() => {
     // set by default to first item
-    setDestinationColumnId(columnOrder
-        .filter((x) => x !== columnId)[0])
-  }, [columnOrder])
+    setDestinationColumnId(columnOrder.filter((x) => x !== columnId)[0]);
+  }, [columnOrder]);
 
   useEffect(() => {
-    console.log({ columnId, columns })
+    console.log({ columnId, columns });
 
     if (columnId !== null && columns.hasOwnProperty(columnId)) {
-        setColumnName(columns[columnId].name)
-        return
+      setColumnName(columns[columnId].name);
+      return;
     }
 
     setColumnName("");
@@ -154,4 +153,3 @@ const EditListModal = ({ modalVisible, handleClose, columnId }: Props) => {
 };
 
 export default EditListModal;
-

@@ -83,4 +83,3 @@ const ViewCardModal = ({
 };
 
 export default ViewCardModal;
-

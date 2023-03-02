@@ -6,15 +6,14 @@ import { useRouter } from "next/router";
 interface Props {
   card: ICard;
   index: number;
-  boardId: string
-  columnId: string
+  boardId: string;
+  columnId: string;
 }
 
 const Card = ({ card, index, boardId, columnId }: Props) => {
   const router = useRouter();
 
   const handleViewCard = () => {
-
     router.push(`/boards/${boardId}/cards/${columnId}/${card?.id}`);
   };
 
@@ -72,4 +71,3 @@ const Card = ({ card, index, boardId, columnId }: Props) => {
 };
 
 export default Card;
-

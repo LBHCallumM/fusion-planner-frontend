@@ -10,13 +10,13 @@ interface Props {
 
 const Description = ({ description, card }: Props) => {
   const [editingDescription, setEditingDescription] = useState<boolean>(false);
-  const [newDescription, setNewDescription] = useState<string>(description)
+  const [newDescription, setNewDescription] = useState<string>(description);
 
   const [state, { editCard }] = createState();
 
   const handleOnInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewDescription(e.target.value)
-  }
+    setNewDescription(e.target.value);
+  };
 
   const handleStartEditingDescription = () => {
     setEditingDescription(true);
@@ -25,13 +25,13 @@ const Description = ({ description, card }: Props) => {
   const handleOnCancelEdit = () => {
     setEditingDescription(false);
     // revert to default
-    setNewDescription(description)
+    setNewDescription(description);
   };
 
   const handleSaveChanges = () => {
-    editCard({ ...card, description: newDescription })
-    setEditingDescription(false)
-  }
+    editCard({ ...card, description: newDescription });
+    setEditingDescription(false);
+  };
 
   return (
     <>
@@ -51,7 +51,10 @@ const Description = ({ description, card }: Props) => {
         </svg>
         <span className="font-medium">Description</span>{" "}
         {description && (
-          <button onClick={handleStartEditingDescription} className="bg-gray-200 ml-2 text-gray-600 px-2 py rounded-sm">
+          <button
+            onClick={handleStartEditingDescription}
+            className="bg-gray-200 ml-2 text-gray-600 px-2 py rounded-sm"
+          >
             Edit
           </button>
         )}
@@ -99,4 +102,3 @@ const Description = ({ description, card }: Props) => {
 };
 
 export default Description;
-

@@ -9,7 +9,15 @@ const BoardPage = () => {
   const { slug } = router.query;
 
   return (
-    <>{slug && <Board boardId={slug[0]} columnId={slug[2] || null} cardId={slug[3] || null} />}</>
+    <>
+      {slug && (
+        <Board
+          boardId={slug[0]}
+          columnId={slug[2] || null}
+          cardId={slug[3] || null}
+        />
+      )}
+    </>
   );
 };
 
@@ -25,4 +33,3 @@ export const getServerSideProps = async (context) => {
 };
 
 export default BoardPage;
-

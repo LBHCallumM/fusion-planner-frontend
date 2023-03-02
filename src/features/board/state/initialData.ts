@@ -1,6 +1,5 @@
 import { State } from ".";
 
-
 const initialData: State = {
   columns: {
     "1": {
@@ -46,4 +45,3 @@ const initialData: State = {
 };
 
 export default initialData;
-

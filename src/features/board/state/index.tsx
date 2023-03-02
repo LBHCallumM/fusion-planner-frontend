@@ -202,8 +202,6 @@ const actions = {
 
       const columnOrder = getState().columnOrder.filter((x) => x !== columnId);
 
-      console.log({ columns, columnId });
-
       setState({ columns, columnOrder });
     },
   editColumn:

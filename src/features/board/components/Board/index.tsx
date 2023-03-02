@@ -1,16 +1,13 @@
 import { DragDropContext } from "react-beautiful-dnd";
 
 import Column from "../Column";
-import { IBoard, ICard } from "../../types";
-import ViewCardModal from "@/features/modals/ViewCardModal";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import initialData from "../../state/initialData";
 import AddColumnForm from "../AddColumnForm";
 import TaskBar from "../TaskBar";
 import { createState } from "../../state";
-import EditBoardModal from "@/features/modals/EditBoardModal";
-import EditListModal from "@/features/modals/EditListModal";
+import ModalProvider from "@/features/modals/ModalProvider";
+import { createModalState } from "@/features/modals/State";
 
 interface Props {
   boardId: string;
@@ -20,21 +17,15 @@ interface Props {
 
 const Board = ({ boardId, columnId, cardId }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [viewCardModal, setViewCardModal] = useState<ICard | null>(null);
-  const [editBoardModal, setEditBoardModall] = useState<IBoard | null>(null);
-  const [editListModal, setEditListModal] = useState<string | null>(null);
 
   const [{ cards, columnOrder, columns }, { initBoard, reorderCard }] =
     createState();
 
-  const router = useRouter();
+  const [state, { toggleEditBoardModal, toggleViewCardModal }] =
+    createModalState();
 
   const handleShowBoard = () => {
-    setEditBoardModall({
-      id: boardId,
-      description: "description",
-      name: "Board One",
-    });
+    toggleEditBoardModal(true);
   };
 
   useEffect(() => {
@@ -51,51 +42,20 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
   useEffect(() => {
     if (cards === null) return;
 
-    if (cardId === null) {
-      showViewCardModal(null);
+    if (cardId === null || Object.keys(cards).length === 0) {
       return;
     }
 
     if (!cards.hasOwnProperty(cardId)) {
-      closeViewCardModal();
-      alert("Card not found");
       return;
     }
 
-    const card = cards[cardId];
-
-    showViewCardModal(card);
+    toggleViewCardModal({ cardId, boardId, columnId });
   }, [cardId, cards]);
-
-  const showViewCardModal = (card: ICard | null): void => {
-    setViewCardModal(card);
-  };
-
-  const closeViewCardModal = (): void => {
-    router.push(`/boards/${boardId}/`);
-  };
 
   return (
     <>
-      <ViewCardModal
-        card={viewCardModal}
-        modalVisible={viewCardModal !== null}
-        handleClose={closeViewCardModal}
-        boardId={boardId}
-        columnName={columnId && columns[columnId]?.name}
-        columnId={columnId}
-      />
-
-      <EditBoardModal
-        handleClose={() => setEditBoardModall(null)}
-        modalVisible={editBoardModal !== null}
-      />
-
-      <EditListModal
-        handleClose={() => setEditListModal(null)}
-        modalVisible={editListModal !== null}
-        columnId={editListModal}
-      />
+      <ModalProvider />
 
       {loading ? (
         <>
@@ -116,7 +76,6 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
                       key={column?.id}
                       column={column}
                       boardId={boardId}
-                      handleEditColumn={() => setEditListModal(column?.id)}
                     />
                   ))}
 

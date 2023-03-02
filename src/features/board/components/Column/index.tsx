@@ -7,18 +7,20 @@ import { useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { getNextCardId } from "../../boardHelper";
 import { createState } from "../../state";
+import { createModalState } from "@/features/modals/State";
 
 interface Props {
   column: IColumn;
   boardId: string;
-  handleEditColumn: () => void;
 }
 
-const Column = ({ column, boardId, handleEditColumn }: Props) => {
+const Column = ({ column, boardId }: Props) => {
   const [isAddingCard, setIsAddingCard] = useState<boolean>(false);
   const [newCardName, setNewCardName] = useState<string>("");
 
   const [{ cards }, { addCard }] = createState();
+
+  const [state, { toggleEditColumnModal}] = createModalState()
 
   const handleOnInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewCardName(e.target.value);
@@ -49,7 +51,7 @@ const Column = ({ column, boardId, handleEditColumn }: Props) => {
         {/* <div> */}
         <div className="flex items-center justify-between mb-2 px-1 py-1">
           <h2 className="font-semibold text-gray-700 ">{column?.name}</h2>
-          <button onClick={handleEditColumn}>
+          <button onClick={() => toggleEditColumnModal(column.id)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

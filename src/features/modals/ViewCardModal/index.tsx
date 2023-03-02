@@ -1,5 +1,4 @@
 import { createState } from "@/features/board/state";
-import { ICard } from "@/features/board/types";
 import { useEffect } from "react";
 import Modal from "../Modal";
 import Actions from "./Actions";
@@ -10,38 +9,35 @@ import Description from "./Description";
 interface Props {
   modalVisible: boolean;
   handleClose: Function;
-  card: ICard | null;
-  boardId: string;
-  columnName: string | null;
+  cardId: string | null;
+  boardId: string | null;
   columnId: string | null;
 }
 
 const ViewCardModal = ({
   modalVisible,
-  columnId,
-  columnName,
   handleClose,
-  card,
+  cardId,
   boardId,
-}: // handleDeleteCard,
-Props) => {
-  const [state, { deleteCard }] = createState();
+  columnId,
+}: Props) => {
+  const [{ cards, columns }, { deleteCard }] = createState();
 
   useEffect(() => {
     // set title
-    if (card?.title) {
-      document.title = card.title;
+    if (cardId !== null && cards.hasOwnProperty(cardId)) {
+      document.title = cards[cardId].title;
     }
-  }, [card?.id]);
+  }, [cardId]);
 
   const handleDeleteCard = () => {
-    deleteCard(card.id, columnId);
+    deleteCard(cardId, columnId);
     handleClose();
   };
 
   return (
     <Modal modalVisible={modalVisible} handleClose={handleClose}>
-      {card && (
+      {cardId && (
         <div className="sm:p-2 md:p-4 lg:p-8">
           <h2 className="text-xl text-gray-800 mb flex items-center">
             <svg
@@ -59,20 +55,23 @@ Props) => {
               />
             </svg>
 
-            <span className="font-medium">{card.title}</span>
+            <span className="font-medium">{cards[cardId]?.title}</span>
           </h2>
 
           <div className="text-gray-400 mb-2 ml-8">
-            in list <span className="underline">{columnName}</span>
+            in list <span className="underline">{columns[columnId]?.name}</span>
           </div>
 
-          <CopyLink boardId={boardId} cardId={card.id} columnId={columnId} />
+          <CopyLink boardId={boardId} cardId={cardId} columnId={columnId} />
 
           <div className=" grid md:space-x-4 grid-cols-[1fr] md:grid-cols-[3fr,1fr] mt-4">
             <div>
-              <Description description={card.description} card={card} />
+              <Description
+                description={cards[cardId]?.description}
+                card={cards[cardId]}
+              />
 
-              <Activity cardId={card?.id} />
+              <Activity cardId={cardId} />
             </div>
 
             <Actions handleDeleteCard={handleDeleteCard} />

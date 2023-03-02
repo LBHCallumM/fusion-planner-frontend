@@ -1,43 +1,20 @@
 import Modal from "../Modal";
-import TextInput from "@/components/form/TextInput";
 import { useState, useEffect } from "react";
-import { IBoard } from "@/features/board/types";
-import { getNextBoardId } from "@/features/board/boardHelper";
 import { createState } from "@/features/board/state";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import ReorderColumns from "./ReorderColumns";
 import BoardDetails from "./BoardDetails";
-import EditColumn from "../EditListModal/EditColumn";
 
 interface Props {
   modalVisible: boolean;
   handleClose: Function;
-  // handleAddBoard: (newBoard: IBoard) => void;
-
-  // board: IBoard;
 }
 
-const EditBoardModal = ({
-  modalVisible,
-  handleClose,
-}: Props) => {
-  const [columnName, setColumnName] = useState<string>("");
-
-  const [
-    {  columns },
-  
-  ] = createState();
-
+const EditBoardModal = ({ modalVisible, handleClose }: Props) => {
   const [selectedColumnId, setSelectedColumnId] = useState<string | null>(null);
 
-
   useEffect(() => {
-    setSelectedColumnId(null)
-  }, [modalVisible])
-
-  useEffect(() => {
-    setColumnName((selectedColumnId && columns[selectedColumnId]?.name) || "");
-  }, [selectedColumnId]);
+    setSelectedColumnId(null);
+  }, [modalVisible]);
 
   const updateBoard = (name: string, description: string) => {
     //
@@ -56,8 +33,7 @@ const EditBoardModal = ({
           selectedColumnId={selectedColumnId}
           setSelectedColumnId={setSelectedColumnId}
         />
-
-         </div>
+      </div>
     </Modal>
   );
 };

@@ -11,17 +11,18 @@ import { createState } from "../../state";
 interface Props {
   column: IColumn;
   boardId: string;
+  handleEditColumn: () => void;
 }
 
-const Column = ({ column, boardId }: Props) => {
+const Column = ({ column, boardId, handleEditColumn }: Props) => {
   const [isAddingCard, setIsAddingCard] = useState<boolean>(false);
   const [newCardName, setNewCardName] = useState<string>("");
 
   const [{ cards }, { addCard }] = createState();
 
   const handleOnInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewCardName(e.target.value)
-  }
+    setNewCardName(e.target.value);
+  };
 
   const handleOpenCardEditor = () => {
     setIsAddingCard(true);
@@ -47,8 +48,8 @@ const Column = ({ column, boardId }: Props) => {
       <div className="bg-gray-200 w-72 p-2 rounded-sm">
         {/* <div> */}
         <div className="flex items-center justify-between mb-2 px-1 py-1">
-          <h2 className="font-semibold text-gray-700 ">{column.name}</h2>
-          <button>
+          <h2 className="font-semibold text-gray-700 ">{column?.name}</h2>
+          <button onClick={handleEditColumn}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -66,11 +67,11 @@ const Column = ({ column, boardId }: Props) => {
           </button>
         </div>
 
-        <Droppable droppableId={column.id}>
+        <Droppable droppableId={column?.id}>
           {(provided, snapshot) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               <ol className="space-y-2 min-h-[20px]">
-                {column.cardIds
+                {column?.cardIds
                   .map((cardId) => cards[cardId])
                   .map((card, index) => (
                     <Card
@@ -78,7 +79,7 @@ const Column = ({ column, boardId }: Props) => {
                       card={card}
                       index={index}
                       boardId={boardId}
-                      columnId={column.id}
+                      columnId={column?.id}
                     />
                   ))}
               </ol>

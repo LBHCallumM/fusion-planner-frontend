@@ -2,30 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-/* .draggable {
-    top: auto !important;
-    left: auto !important;
-  }
+.checkbox {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 1px;
+  margin-right: 15px !important;
+  position: relative;
+  cursor: pointer;
 
-  [data-rbd-draggable-id] { left: auto !important; top: auto !important; } */
+  border: 2px solid #979797 !important;
+  -webkit-appearance: none;
+}
 
-  /* * {
-    background-color: red !important;
-  } */
+.checkbox::after {
+  opacity: 0;
+  display: block;
+  content: "";
+  width: 25px;
+  height: 25px;
+  background-color: #0a0a0a;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-65%, -75%) rotate(-45deg);
+  -webkit-clip-path: polygon(
+    0 50%,
+    20% 50%,
+    20% 80%,
+    100% 80%,
+    100% 100%,
+    0 100%
+  );
+  clip-path: polygon(0 50%, 20% 50%, 20% 80%, 100% 80%, 100% 100%, 0 100%);
+}
 
+.checkbox:checked {
+  border-color: #0a0a0a !important;
+}
 
-  /* .main {
-    background: #eee;
-    padding: 3rem;
-    height: 200px;
-    overflow-y: scroll;
-  }
-  .droppable {
-    padding: 1rem;
-    background: #aaa;
-  }
-  .draggable {
-    margin: 0.5rem 0;
-    padding: 1rem;
-    background: #ccc;
-  } */
+.checkbox:checked::after {
+  opacity: 1;
+}

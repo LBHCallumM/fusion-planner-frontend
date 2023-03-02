@@ -10,6 +10,7 @@ import AddColumnForm from "../AddColumnForm";
 import TaskBar from "../TaskBar";
 import { createState } from "../../state";
 import EditBoardModal from "@/features/modals/EditBoardModal";
+import EditListModal from "@/features/modals/EditListModal";
 
 interface Props {
   boardId: string;
@@ -21,6 +22,7 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [viewCardModal, setViewCardModal] = useState<ICard | null>(null);
   const [editBoardModal, setEditBoardModall] = useState<IBoard | null>(null);
+  const [editListModal, setEditListModal] = useState<string | null>(null);
 
   const [{ cards, columnOrder, columns }, { initBoard, reorderCard }] =
     createState();
@@ -85,9 +87,14 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
       />
 
       <EditBoardModal
-        board={editBoardModal}
         handleClose={() => setEditBoardModall(null)}
         modalVisible={editBoardModal !== null}
+      />
+
+      <EditListModal
+        handleClose={() => setEditListModal(null)}
+        modalVisible={editListModal !== null}
+        columnId={editListModal}
       />
 
       {loading ? (
@@ -105,7 +112,12 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
                 {columnOrder
                   .map((x) => columns[x])
                   .map((column) => (
-                    <Column key={column.id} column={column} boardId={boardId} />
+                    <Column
+                      key={column?.id}
+                      column={column}
+                      boardId={boardId}
+                      handleEditColumn={() => setEditListModal(column?.id)}
+                    />
                   ))}
 
                 <AddColumnForm />

@@ -179,9 +179,32 @@ const actions = {
       setState({ columns, columnOrder });
     },
   deleteColumn:
-    (columnId: string): Action<State> =>
+    (columnId: string, destinationColumnId?: string): Action<State> =>
     ({ getState, setState }) => {
-      //
+      const columns = { ...getState().columns };
+
+      if (destinationColumnId !== null) {
+        // take card ids from source column
+        const cardIds = columns[columnId].cardIds;
+
+        // add to destination column
+        const destinationColumn = columns[destinationColumnId];
+
+        const newColumnCardIds = [...destinationColumn.cardIds, ...cardIds];
+
+        columns[destinationColumnId] = {
+          ...destinationColumn,
+          cardIds: newColumnCardIds,
+        };
+      }
+
+      delete columns[columnId];
+
+      const columnOrder = getState().columnOrder.filter((x) => x !== columnId);
+
+      console.log({ columns, columnId });
+
+      setState({ columns, columnOrder });
     },
   editColumn:
     (column: IColumn): Action<State> =>
@@ -192,33 +215,11 @@ const actions = {
       };
       setState({ columns });
     },
-  reorderColumn:
-    (selectedColumn: string, direction: "left" | "right"): Action<State> =>
+  reorderColumns:
+    (newOrder: Array<string>): Action<State> =>
     ({ getState, setState }) => {
-      const columnOrder = [...getState().columnOrder];
-
-      const index = columnOrder.indexOf(selectedColumn);
-
-      // cannot move left
-      if (direction === "left" && index === 0) {
-        return;
-      }
-
-      // cannot move right
-      if (direction === "right" && index === columnOrder.length - 1) {
-        return;
-      }
-
-      columnOrder.splice(index, 1);
-
-      if (direction === "right") {
-        columnOrder.splice(index + 1, 0, selectedColumn);
-      } else {
-        columnOrder.splice(index - 1, 0, selectedColumn);
-      }
-
       setState({
-        columnOrder,
+        columnOrder: newOrder,
       });
     },
 };

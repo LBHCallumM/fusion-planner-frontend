@@ -1,6 +1,6 @@
 import { IComment } from "@/features/board/types";
 import React, { useEffect, useState } from "react";
-import ReactTimeago from "react-timeago";
+import Comment from "../Comment";
 import placeholderComments from "./placeholderComments";
 
 interface Props {
@@ -8,9 +8,12 @@ interface Props {
 }
 
 const Activity = ({ cardId }: Props) => {
+  // const [isAddingComment, setIsAddingComment] = useState<boolean>(false)
   const [newComment, setNewComment] = useState<string>("");
   const [comments, setComments] = useState<Array<IComment>>([]);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const [isShowingComments, setIsShowingComments] = useState<boolean>(false)
 
   useEffect(() => {
     // fetch new comments
@@ -61,7 +64,7 @@ const Activity = ({ cardId }: Props) => {
     <>
       {/* Refactor icons as components */}
       {/* Then create headings as components, with icons as an optional prop */}
-      <h2 className="text-lg text-gray-800 mb-2 flex items-center mt-4">
+      <h2 className="text-xl text-gray-900 mb-2 flex items-center mt-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -81,64 +84,54 @@ const Activity = ({ cardId }: Props) => {
       </h2>
       {/* Add Comment */}
 
-      <div className="ml-8 bg-gray-100 p-2 rounded-sm">
+      <div className="ml-8 rounded-sm">
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             name=""
             id=""
-            placeholder="Write a comment..."
-            className="w-full px-2 py-2 rounded-sm border border-solid border-gray-400 block"
+            placeholder="Add a comment..."
+            className="w-full px-2 py-2 rounded-sm border border-solid border-gray-300 block outline-none focus:border-gray-500"
             value={newComment}
             onInput={handleOnInput}
           />
 
-          <div className="flex gap-x-2">
-            <button
-              type="submit"
-              className="bg-gray-600 text-gray-50 px-4 py-2 rounded-sm mt-2"
-            >
-              Send
-            </button>
-            <button
-              type="button"
-              onClick={handleCancel}
-              className="bg-gray-600 text-gray-50 px-4 py-2 rounded-sm mt-2"
-            >
-              Cancel
-            </button>
-          </div>
+          {newComment !== "" && (
+            <div className="flex gap-x-2">
+              <>
+                <button
+                  type="submit"
+                  className="bg-gray-500 outline-none text-gray-50 px-4 py-2 rounded-sm mt-2 hover:bg-gray-600"
+                >
+                  Send
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCancel}
+                  className="text-gray-700 py-2 px-4 rounded-sm mt-2 outline-none hover:bg-gray-400 hover:text-white"
+                >
+                  Cancel
+                </button>
+              </>
+            </div>
+          )}
         </form>
       </div>
 
+
       <div>
         {loading ? (
-          <>Loading...</>
+          <div className="mt-4 ml-8">Loading...</div>
         ) : (
-          <ol className="ml-8 mt-4 flex flex-col gap-y-4">
+          <ol className="mt-6 flex flex-col gap-y-4 ml-8">
             {comments &&
               comments.map((comment, index) => (
                 <li key={index}>
                   {/* Add EditComment functionality */}
-                  <div className="">
-                    <div>
-                      <span className="font-semibold mr">{comment.author}</span>{" "}
-                      <span className="font-light text-gray-500">
-                        <ReactTimeago date={comment.time} />
-                      </span>
-                    </div>
-                    <div className="bg-gray-50 rounded-sm p-2 my-1 shadow-sm">
-                      {comment.message}
-                    </div>
-                    {comment.author === "Callum Macpherson" && (
-                      <div className="flex gap-x-2 font-light underline text-gray-500">
-                        <button>Edit</button>
-                        <button onClick={() => handleDeleteComment(index)}>
-                          Delete
-                        </button>
-                      </div>
-                    )}
-                  </div>
+                  <Comment
+                    comment={comment}
+                    handleDeleteComment={() => handleDeleteComment(index)}
+                  />
                 </li>
               ))}
           </ol>
@@ -149,3 +142,4 @@ const Activity = ({ cardId }: Props) => {
 };
 
 export default Activity;
+

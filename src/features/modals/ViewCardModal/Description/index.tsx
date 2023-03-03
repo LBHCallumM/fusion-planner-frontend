@@ -35,7 +35,7 @@ const Description = ({ description, card }: Props) => {
 
   return (
     <>
-      <h2 className="text-lg text-gray-800 mb-2 flex items-center ">
+      <h2 className="text-xl text-gray-900 mb-2 flex items-center mt-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -50,23 +50,15 @@ const Description = ({ description, card }: Props) => {
           />
         </svg>
         <span className="font-medium">Description</span>{" "}
-        {description && (
-          <button
-            onClick={handleStartEditingDescription}
-            className="bg-gray-200 ml-2 text-gray-600 px-2 py rounded-sm"
-          >
-            Edit
-          </button>
-        )}
       </h2>
 
       <div className=" ml-8">
         {editingDescription ? (
           <div>
             <ReactTextareaAutosize
-              minRows={6}
-              maxRows={12}
-              className="border border-solid border-gray-500 w-full block rounded-sm p-2 min-h-full"
+              minRows={4}
+              maxRows={8}
+              className="border border-solid border-gray-400 text-gray-500 w-full block rounded-sm p-4 min-h-full outline-none"
               autoFocus
               value={newDescription}
               onInput={handleOnInput}
@@ -88,13 +80,13 @@ const Description = ({ description, card }: Props) => {
             </div>
           </div>
         ) : (
-          <div
+          <button
             role="button"
             onClick={handleStartEditingDescription}
-            className="bg-gray-100 text-gray-600 p-3 rounded-sm"
+            className="text-gray-500 p-2 rounded-sm hover:bg-gray-100 -ml-2  whitespace-pre w-full text-left"
           >
             {description ? description : "Add a more detailed description..."}
-          </div>
+          </button>
         )}
       </div>
     </>
@@ -102,3 +94,4 @@ const Description = ({ description, card }: Props) => {
 };
 
 export default Description;
+

@@ -5,6 +5,7 @@ import Actions from "./Actions";
 import Activity from "./Activity";
 import CopyLink from "./CopyLink";
 import Description from "./Description";
+import Layout from "./Layout";
 
 interface Props {
   modalVisible: boolean;
@@ -36,10 +37,19 @@ const ViewCardModal = ({
   };
 
   return (
-    <Modal modalVisible={modalVisible} handleClose={handleClose}>
-      {cardId && (
-        <div className="sm:p-2 md:p-4 lg:p-8">
-          <h2 className="text-xl text-gray-800 mb flex items-center">
+    <Modal modalVisible={modalVisible} handleClose={handleClose} modalSize="large">
+
+<Layout 
+
+    top={
+
+<div className="p-6 sm:overflow-y-auto">
+
+
+{cardId && (
+        <div className="">
+        
+         <h2 className="text-2xl text-gray-900 mb flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -64,20 +74,50 @@ const ViewCardModal = ({
 
           <CopyLink boardId={boardId} cardId={cardId} columnId={columnId} />
 
-          <div className=" grid md:space-x-4 grid-cols-[1fr] md:grid-cols-[3fr,1fr] mt-4">
-            <div>
+         
+        
               <Description
                 description={cards[cardId]?.description}
                 card={cards[cardId]}
               />
 
-              <Activity cardId={cardId} />
-            </div>
-
-            <Actions handleDeleteCard={handleDeleteCard} />
-          </div>
+          
+     
+<Activity cardId={cardId} />
+           
+      
         </div>
       )}
+
+
+</div>
+
+
+
+    }
+
+    right={
+      <div className="p-6 pt-0 sm:pt-6 h-full sm:bg-gray-500">
+  
+      <Actions handleDeleteCard={handleDeleteCard} />
+      
+      </div>
+    }
+
+    // bottom={
+    //   <div className="p-6 pt-12 md:overflow-y-auto">
+
+      
+    //   </div>
+    // }
+/>
+
+
+
+
+
+
+      
     </Modal>
   );
 };

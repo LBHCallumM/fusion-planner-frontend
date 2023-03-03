@@ -6,7 +6,6 @@ import initialData from "../../state/initialData";
 import AddColumnForm from "../AddColumnForm";
 import TaskBar from "../TaskBar";
 import { createState } from "../../state";
-import ModalProvider from "@/features/modals/ModalProvider";
 import { createModalState } from "@/features/modals/State";
 
 interface Props {
@@ -55,8 +54,6 @@ const Board = ({ boardId, columnId, cardId }: Props) => {
 
   return (
     <>
-      <ModalProvider />
-
       {loading ? (
         <>
           <p>Loading...</p>

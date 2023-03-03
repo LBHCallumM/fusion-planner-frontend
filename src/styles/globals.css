@@ -43,3 +43,8 @@
 .checkbox:checked::after {
   opacity: 1;
 }
+
+.draggable {
+  top: auto !important;
+  left: auto !important;
+}

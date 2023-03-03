@@ -123,18 +123,22 @@ const Activity = ({ cardId }: Props) => {
         {loading ? (
           <div className="mt-4 ml-8">Loading...</div>
         ) : (
-          <ol className="mt-6 flex flex-col gap-y-4 ml-8">
-            {comments &&
-              comments.map((comment, index) => (
-                <li key={index}>
-                  {/* Add EditComment functionality */}
-                  <Comment
-                    comment={comment}
-                    handleDeleteComment={() => handleDeleteComment(index)}
-                  />
-                </li>
-              ))}
-          </ol>
+          <>
+            {comments.length > 0 && (
+              <ol className="mt-6 flex flex-col gap-y-4 ml-8">
+              {comments &&
+                comments.map((comment, index) => (
+                  <li key={index}>
+                    {/* Add EditComment functionality */}
+                    <Comment
+                      comment={comment}
+                      handleDeleteComment={() => handleDeleteComment(index)}
+                    />
+                  </li>
+                ))}
+            </ol>
+            )}
+          </>
         )}
       </div>
     </>

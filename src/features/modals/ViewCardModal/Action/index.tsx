@@ -7,7 +7,7 @@ const Action = ({ label, onClick }: Props) => {
   return (
     <>
       <div className="flex items-center justify-between">
-        <div className="sm:hidden">{label}</div>
+        <div className="text-gray-700 sm:hidden">{label}</div>
 
         <button
           className=" sm:text-lg  max-w-[12rem] sm:max-w-none sm:w-full bg-gray-100 rounded-sm shadow-sm px-2 py-1 text-left shadow-sm font-normal text-gray-700 hover:bg-gray-200 flex items-center"

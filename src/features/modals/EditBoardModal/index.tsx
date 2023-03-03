@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { createState } from "@/features/board/state";
 import ReorderColumns from "./ReorderColumns";
 import BoardDetails from "./BoardDetails";
+import DocumentIcon from "@/components/icons/DocumentIcon";
+import TabRouter from "@/components/tabs/TabRouter";
 
 interface Props {
   modalVisible: boolean;
@@ -10,32 +12,36 @@ interface Props {
 }
 
 const EditBoardModal = ({ modalVisible, handleClose }: Props) => {
-  const [selectedColumnId, setSelectedColumnId] = useState<string | null>(null);
 
-  useEffect(() => {
-    setSelectedColumnId(null);
-  }, [modalVisible]);
+
 
   const updateBoard = (name: string, description: string) => {
     //
   };
 
+  type TabView = "Edit details" | "Reorder columns";
+  const tabOptions: TabView[] = ["Edit details", "Reorder columns"];
+  const [currentTab, setCurrentTab] = useState<TabView>("Edit details");
+
+  const tabs = [
+    {name: "Board details", component: <BoardDetails updateBoard={updateBoard} />},
+    {name: "Reorder columns", component: <ReorderColumns />}
+  ]
+
   return (
     <Modal modalVisible={modalVisible} handleClose={handleClose}>
-      <div className="sm:p-2 md:p-4 lg:p-8">
-        <h2 className="text-2xl text-gray-800 mb flex items-center font-medium">
-          Edit Board
+      <div className="p-6">
+        <h2 className="text-2xl text-gray-900 mb flex items-center">
+          <DocumentIcon className="w-6 h-6 mr-2" />
+
+          <span className="font-medium">Edit Board</span>
         </h2>
 
-        <BoardDetails updateBoard={updateBoard} />
-
-        <ReorderColumns
-          selectedColumnId={selectedColumnId}
-          setSelectedColumnId={setSelectedColumnId}
-        />
+        <TabRouter tabs={tabs} />
       </div>
     </Modal>
   );
 };
 
 export default EditBoardModal;
+

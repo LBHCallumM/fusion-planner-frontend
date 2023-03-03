@@ -17,25 +17,29 @@ const BoardDetails = ({ updateBoard }: Props) => {
 
   return (
     <form onSubmit={handleUpdateBoard}>
+ <h3 className="text-xl text-gray-900 mb-4 flex items-center font-medium mt-4">
+        Edit Details
+      </h3>
+
       <TextInput
         name="name"
-        label="Board name"
+        placeholder="Board name"
         value={name}
         handleOnInput={(e) => setName(e.target.value)}
       />
 
       <TextInput
         name="description"
-        label="Description"
+        placeholder="Description"
         value={description}
         handleOnInput={(e) => setDescription(e.target.value)}
       />
 
       <button
         type="submit"
-        className="bg-gray-600 text-white py-2 px-4 rounded-sm mt-4"
+        className="bg-gray-500 outline-none text-white py-2 px-4 rounded-sm mt-4 hover:bg-gray-600 focus:bg-gray-600"
       >
-        Update board
+        Save changes
       </button>
     </form>
   );

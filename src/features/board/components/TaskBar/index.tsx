@@ -11,7 +11,7 @@ const TaskBar = ({ title, handleEditBoard }: Props) => {
 
         <button
           onClick={handleEditBoard}
-          className=" bg-gray-600 rounded-sm px-3"
+          className=" outline-none border border-gray-600 text-gray-700  rounded-sm px-3"
         >
           Edit Board
         </button>
